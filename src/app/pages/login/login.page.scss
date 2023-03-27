@@ -12,15 +12,8 @@
   background: #4ec858;
 
   &--img-back {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &--circle {
-      position: absolute;
-      animation: rotate 12s linear infinite;
-    }
+    background: #dedede;
+    border-radius: 100%;
 
     &--logo {
       animation: jumping-flower 8s infinite;
@@ -183,14 +176,5 @@
   }
   100% {
     transform: rotate(0);
-  }
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }
