@@ -1,7 +1,8 @@
 .login {
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -11,11 +12,18 @@
   background: #4ec858;
 
   &--img-back {
-    background: #dedede;
-    border-radius: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    img {
-      animation: jumping-flower 2s infinite;
+    &--circle {
+      position: absolute;
+      animation: rotate 12s linear infinite;
+    }
+
+    &--logo {
+      animation: jumping-flower 8s infinite;
     }
   }
 
@@ -175,5 +183,14 @@
   }
   100% {
     transform: rotate(0);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
