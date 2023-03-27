@@ -30,9 +30,32 @@
   font-size: 1rem;
 }
 
+.disable {
+  opacity: .3;
+  pointer-events: none;
+}
+
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 300;
   src: url("assets/fonts/Montserrat-Regular.ttf");
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes exit-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
