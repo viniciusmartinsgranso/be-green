@@ -68,6 +68,8 @@
     height: 100%;
     padding: 1rem;
     font-size: 1.3rem;
+    overflow: auto;
+    gap: 1.3rem;
 
     &--back {
       width: 3rem;
