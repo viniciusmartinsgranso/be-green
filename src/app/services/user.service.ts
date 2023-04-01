@@ -66,9 +66,9 @@ export class UserService {
     });
 
     console.log(newUser);
-    // storageUsers.push(newUser);
-    // localStorage.setItem('users', JSON.stringify(storageUsers));
-    // localStorage.setItem('loggedUser', JSON.stringify(storageUsers));
+    storageUsers.push(newUser);
+    localStorage.setItem('users', JSON.stringify(storageUsers));
+    localStorage.setItem('loggedUser', JSON.stringify(storageUsers));
   }
 
   public async delete(user: number): Promise<void> {

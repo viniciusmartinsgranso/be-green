@@ -101,17 +101,17 @@ export class LoginPage implements OnInit {
   public async register(): Promise<void> {
     if(!this.canRegister()) return;
 
-    // this.userService.create(this.registerPayload);
-    //
-    // await this.router.navigate(['/home']);
+    await this.userService.create(this.registerPayload);
+
+    await this.router.navigate(['/home']);
     await this.helper.showToast('Bem vindo(a) ao Be Green!');
   }
 
   public applyMask(cnpj: any): void {
-    this.registerPayload.cnpj = cnpj.replace(/\D/g, '') // não deixa ser digitado nenhuma letra
-      .replace(/(\d{2})(\d)/, '$1.$2') // captura 2 grupos de número o primeiro com 2 digitos e o segundo de com 3 digitos, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de número
+    this.registerPayload.cnpj = cnpj.replace(/\D/g, '')
+      .replace(/(\d{2})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d)/, '$1/$2') // captura 2 grupos de número o primeiro e o segundo com 3 digitos, separados por /
+      .replace(/(\d{3})(\d)/, '$1/$2')
       .replace(/(\d{4})(\d)/, '$1-$2')
       .replace(/(-\d{2})\d+?$/, '$1');
   }
