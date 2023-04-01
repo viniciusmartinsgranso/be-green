@@ -20,36 +20,85 @@
       </div>
       <div class="login--home--actions">
         <button class="login--home--actions--login" (click)="isLogin = !isLogin">Continuar</button>
-        <button class="login--home--actions--register">Registrar-se</button>
+        <button class="login--home--actions--register" (click)="isRegister = !isRegister">Registrar-se</button>
       </div>
     </div>
   </ng-container>
 
   <ng-container *ngIf="isLogin">
-    <div class="login--page">
-      <img class="login--page--back" src="assets/images/arrow-back.svg" (click)="isLogin = !isLogin" alt="">
-      <div class="login--home--img-back">
-        <img class="login--home--img-back--logo" src="assets/images/be-green-logo.png">
-      </div>
-      <div class="login--page--header">
-        <h1>Bem Vindo de Volta!</h1>
-        <label>Informe sua conta:</label>
-      </div>
-
-      <div class="login--page--form">
-        <label>Email:</label>
-        <input class="login--page--form--input" type="text" [(ngModel)]="loginPayload.email">
-      </div>
-
-      <div class="login--page--form">
-        <label>Senha:</label>
-        <input class="login--page--form--input" type="text" [(ngModel)]="loginPayload.password">
-      </div>
-
-      <button class="login--page--submit" [class.disable]="!canLogin()">Login</button>
-      <div class="login--page--sub-label">
-        <label>Ainda não possui uma conta? <a>Cadastre-se</a></label>
-      </div>
+    <img class="login--back" src="assets/images/arrow-back.svg" (click)="isLogin = !isLogin" alt="">
+    <div class="login--home--img-back">
+      <img class="login--home--img-back--logo" src="assets/images/be-green-logo.png">
     </div>
+    <div class="login--header">
+      <h1>Bem Vindo de Volta!</h1>
+      <label>Informe sua conta:</label>
+    </div>
+
+    <div class="login--form">
+      <label>Email:</label>
+      <input class="login--form--input" type="text" [(ngModel)]="loginPayload.email">
+    </div>
+
+    <div class="login--form">
+      <label>Senha:</label>
+      <input class="login--form--input" type="password" [(ngModel)]="loginPayload.password">
+    </div>
+
+    <button class="login--submit" [class.disable]="!canLogin()" (click)="login()">Login</button>
+    <div class="login--sub-label">
+      <label>Ainda não possui uma conta? <a>Cadastre-se</a></label>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="isRegister">
+    <img class="login--back" src="assets/images/arrow-back.svg" (click)="isRegister = !isRegister" alt="">
+    <div class="login--home--img-back">
+      <img class="login--home--img-back--logo" src="assets/images/be-green-logo.png">
+    </div>
+    <div class="login--header">
+      <h1>Bem Vindo ao Be Green!</h1>
+      <label>Cadastre-se:</label>
+    </div>
+
+    <div class="login--form">
+      <label>Nome:</label>
+      <input class="login--form--input" type="text" [(ngModel)]="registerPayload.name">
+    </div>
+
+    <div class="login--form">
+      <label>Informe se você é:</label>
+      <select class="login--form--input" [(ngModel)]="registerPayload.role">
+        <option value="company">Empresa</option>
+        <option value="user">Usuário</option>
+      </select>
+    </div>
+
+    <div class="login--form">
+      <label>Email:</label>
+      <input class="login--form--input" type="text" [(ngModel)]="registerPayload.email">
+    </div>
+
+    <div class="login--form">
+      <label>Confirme email:</label>
+      <input class="login--form--input" type="text" [(ngModel)]="registerPayload.confirmEmail">
+    </div>
+
+    <div class="login--form" *ngIf="registerPayload.role === 'company'">
+      <label>CNPJ:</label>
+      <input class="login--form--input" type="text" [(ngModel)]="registerPayload.cnpj" (ngModelChange)="applyMask(registerPayload.cnpj)" maxlength="18">
+    </div>
+
+    <div class="login--form">
+      <label>Senha:</label>
+      <input class="login--form--input" type="password" [(ngModel)]="registerPayload.password">
+    </div>
+
+    <div class="login--form">
+      <label>Confirmar senha:</label>
+      <input class="login--form--input" type="password" [(ngModel)]="registerPayload.confirmPassword">
+    </div>
+
+    <button class="login--submit" [class.disable]="!canRegister()" (click)="register()">Cadastrar-se</button>
   </ng-container>
 </div>

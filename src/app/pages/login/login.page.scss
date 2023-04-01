@@ -6,6 +6,10 @@
   background: #4ec858;
   padding: 2rem;
   font-size: 1.3rem;
+  animation: fade 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
 
   &--home {
     display: flex;
@@ -59,17 +63,17 @@
     }
   }
 
-  &--page {
-    animation: fade 1s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
-    font-size: 1.3rem;
-    overflow: auto;
-    gap: 1.3rem;
+  //&--page, &--register {
+  //  animation: fade 1s ease-in-out;
+  //  display: flex;
+  //  flex-direction: column;
+  //  justify-content: space-evenly;
+  //  width: 100%;
+  //  height: 100%;
+  //  padding: 1rem;
+  //  font-size: 1.3rem;
+  //  overflow: auto;
+  //  gap: 1.3rem;
 
     &--back {
       width: 3rem;
@@ -119,6 +123,9 @@
         font-weight: bold;
       }
     }
+  //}
+
+  &--register {
   }
 }
 
