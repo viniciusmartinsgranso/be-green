@@ -24,14 +24,18 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
+    path: 'home',
+    loadChildren: () => import('./main/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'company',
+    loadChildren: () => import('./main/company/company.module').then( m => m.CompanyPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'login',
     pathMatch: 'full',
   },
-  {
-    path: 'home',
-    loadChildren: () => import('./main/home/home.module').then( m => m.HomePageModule)
-  }
 ];
 
 @NgModule({

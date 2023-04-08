@@ -4,6 +4,7 @@ import { CreateUserPayload, RegisterPayload } from '../models/payloads/create-us
 import { LoginPayload } from '../models/payloads/login.payload';
 import { UpdateUserPayload } from '../models/payloads/update-user.payload';
 import { UserProxy } from '../models/proxies/user.proxy';
+import { HelperService } from './helper.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class UserService {
 
   constructor(
     private readonly router: Router,
+    private readonly helper: HelperService,
   ) { }
 
   public user: CreateUserPayload[] = [
@@ -26,21 +28,26 @@ export class UserService {
     },
   ];
 
-  public async get(): Promise<UserProxy> {
+  public get(): UserProxy {
     const user = localStorage.getItem('loggedUser');
     return user ? JSON.parse(user) : false;
   }
 
-  public async getUsers(): Promise<UserProxy[]> {
+  public getUsers(): UserProxy[] {
     const user = localStorage.getItem('users');
     return user ? JSON.parse(user) : false;
   }
 
-  public async create(user: RegisterPayload): Promise<void> {
-    localStorage.removeItem('loggedUser');
+  public create(user: RegisterPayload): void {
     const table = localStorage.getItem('users');
     const storageUsers: RegisterPayload[] = table ? JSON.parse(table) : [];
 
+    const haveUserWithSameEmail = storageUsers.find(item => item.email === user.email)
+
+    if (haveUserWithSameEmail)
+      return void this.helper.showToast('Usuário ou senha incorretos, tente novamente.');
+
+    localStorage.removeItem('loggedUser');
     user.id = user.id === 0 ? 1 : storageUsers[storageUsers.length - 1].id + 1;
 
     storageUsers.push(user);
@@ -71,7 +78,7 @@ export class UserService {
     localStorage.setItem('loggedUser', JSON.stringify(storageUsers));
   }
 
-  public async delete(user: number): Promise<void> {
+  public delete(user: number): void {
     const table = localStorage.getItem('users');
     const storage: UpdateUserPayload[] = table ? JSON.parse(table) : [];
 

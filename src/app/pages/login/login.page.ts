@@ -58,7 +58,6 @@ export class LoginPage implements OnInit {
   public async login(): Promise<void> {
     if (!this.canLogin()) {return;}
 
-
     const canLogin = await this.userService.login(this.loginPayload);
 
     const table = localStorage.getItem('loggedUser');
@@ -103,7 +102,12 @@ export class LoginPage implements OnInit {
 
     await this.userService.create(this.registerPayload);
 
-    await this.router.navigate(['/home']);
+    if (this.registerPayload.role === 'user')
+      await this.router.navigateByUrl('/learn');
+
+    if (this.registerPayload.role === 'company')
+      await this.router.navigateByUrl('/company');
+
     await this.helper.showToast('Bem vindo(a) ao Be Green!');
   }
 

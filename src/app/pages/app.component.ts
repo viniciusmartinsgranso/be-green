@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,8 @@ import { filter, Subscription } from 'rxjs';
 export class AppComponent {
   constructor(
     private readonly router: Router,
+    private readonly userService: UserService,
   ) {
-
     this.routeSubscription = router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((route) => {
@@ -24,11 +25,27 @@ export class AppComponent {
           this.canShowNavbar = false;
         }
       });
+
+    const usersList = this.userService.getUsers();
+
+    if (!usersList) {
+      this.userService.create({
+        id: 0,
+        email: 'admin@email.com',
+        role: 'admin',
+        confirmEmail: 'admin@email.com',
+        name: 'Admin',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        password: '123456',
+        confirmPassword: '123456',
+      });
+    }
   }
 
   public canShowNavbar: boolean = false;
 
-  public routesWithoutNavbar: string[] = ['/login', '/login#login'];
+  public routesWithoutNavbar: string[] = ['/login'];
 
   public routeSubscription: Subscription;
 
