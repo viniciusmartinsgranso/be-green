@@ -47,7 +47,7 @@
 
     <button class="login--submit" [class.disable]="!canLogin()" (click)="login()">Login</button>
     <div class="login--sub-label">
-      <label>Ainda não possui uma conta? <a>Cadastre-se</a></label>
+      <label>Ainda não possui uma conta? <a (click)="isLogin = !isLogin">Cadastre-se</a></label>
     </div>
   </ng-container>
 
@@ -86,7 +86,46 @@
 
     <div class="login--form" *ngIf="registerPayload.role === 'company'">
       <label>CNPJ:</label>
-      <input class="login--form--input" type="text" [(ngModel)]="registerPayload.cnpj" (ngModelChange)="applyMask(registerPayload.cnpj)" maxlength="18">
+      <input
+        class="login--form--input"
+        type="text"
+        inputmode="decimal"
+        [(ngModel)]="registerPayload.cnpj"
+        mask="000.000.000/0000-00"
+        [dropSpecialCharacters]="false"
+        maxlength="19">
+    </div>
+
+    <div class="login--form" *ngIf="registerPayload.role === 'user'">
+      <label>CPF:</label>
+      <input
+        class="login--form--input"
+        type="text"
+        [(ngModel)]="registerPayload.cpf"
+        mask="000.000.000-00"
+        [dropSpecialCharacters]="false"
+        inputmode="decimal"
+        maxlength="14">
+    </div>
+
+    <div class="login--form" *ngIf="registerPayload.role === 'user'">
+      <label>Telefone:</label>
+      <input
+        class="login--form--input"
+        type="text"
+        [(ngModel)]="registerPayload.phone"
+        mask="(00) 00000-0000"
+        [dropSpecialCharacters]="false"
+        inputmode="decimal"
+        maxlength="15">
+    </div>
+
+    <div class="login--form">
+      <label>Endereço:</label>
+      <input
+        class="login--form--input"
+        type="text"
+        [(ngModel)]="registerPayload.address">
     </div>
 
     <div class="login--form">

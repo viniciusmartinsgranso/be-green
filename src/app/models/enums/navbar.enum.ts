@@ -1,6 +1,7 @@
 export enum NavbarEnum {
-  COLLECT_POINTS = 0,
-  LEARN = 1,
+  HOME = 0,
+  COLLECT_POINTS = 1,
   ADMIN = 2,
-  COMPANY = 3,
+  CREATE_POST = 3,
+  VERIFY_USER = 4,
 }

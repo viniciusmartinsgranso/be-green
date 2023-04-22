@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
 import { CreateUserPayload, RegisterPayload } from '../models/payloads/create-user.payload';
 import { LoginPayload } from '../models/payloads/login.payload';
@@ -14,6 +15,7 @@ export class UserService {
   constructor(
     private readonly router: Router,
     private readonly helper: HelperService,
+    private readonly db: AngularFireDatabaseModule,
   ) { }
 
   public user: CreateUserPayload[] = [
@@ -38,21 +40,23 @@ export class UserService {
     return user ? JSON.parse(user) : false;
   }
 
-  public create(user: RegisterPayload): void {
+  public create(user: RegisterPayload): boolean {
     const table = localStorage.getItem('users');
     const storageUsers: RegisterPayload[] = table ? JSON.parse(table) : [];
 
-    const haveUserWithSameEmail = storageUsers.find(item => item.email === user.email)
+    const haveUserWithSameEmail = storageUsers.find(item => item.email === user.email);
 
+    console.log(haveUserWithSameEmail);
     if (haveUserWithSameEmail)
-      return void this.helper.showToast('Usuário ou senha incorretos, tente novamente.');
+      return false;
 
     localStorage.removeItem('loggedUser');
-    user.id = user.id === 0 ? 1 : storageUsers[storageUsers.length - 1].id + 1;
+    user.id = user.id === 0 ? storageUsers[storageUsers.length - 1].id + 1 : 1;
 
     storageUsers.push(user);
     localStorage.setItem('users', JSON.stringify(storageUsers));
     localStorage.setItem('loggedUser', JSON.stringify(user));
+    return true;
   }
 
   public update(user: UpdateUserPayload): void {

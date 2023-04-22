@@ -9,6 +9,10 @@ export interface CreateUserPayload extends BaseCrudProxy {
 
 export interface RegisterPayload extends CreateUserPayload {
   confirmEmail: string;
-  cnpj?: string;
   confirmPassword: string;
+  address: string;
+  cnpj?: string;
+  cpf?: string;
+  phone?: string;
+  cep?: number;
 }

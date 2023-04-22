@@ -5,11 +5,11 @@ import { HelperService } from '../../../services/helper.service';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.page.html',
-  styleUrls: ['./admin.page.scss'],
+  selector: 'app-create-post',
+  templateUrl: './create-post.page.html',
+  styleUrls: ['./create-post.page.scss'],
 })
-export class AdminPage implements OnInit {
+export class CreatePostPage implements OnInit {
 
   constructor(
     private readonly userService: UserService,

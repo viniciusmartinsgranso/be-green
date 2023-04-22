@@ -1,0 +1,81 @@
+<div class="verify">
+  <div class="verify--img-back">
+    <img class="verify--img-back--logo" src="assets/images/be-green-logo.png">
+  </div>
+  <div class="verify--form" [style.border-radius]="!isUserVerified ? '2rem' : '2rem 2rem 0 0'">
+    <div class="verify--form--div">
+      <label>Nome:</label>
+      <input class="verify--form--div--input" type="text" [(ngModel)]="userVerified.name">
+    </div>
+    <div class="verify--form--div">
+      <label>CPF:</label>
+      <input class="verify--form--div--input"
+             type="text"
+             mask="000.000.000-00"
+             [dropSpecialCharacters]="false"
+             inputmode="decimal"
+             maxlength="14"
+             [(ngModel)]="userVerified.cpf">
+    </div>
+    <div class="verify--form--div">
+      <label>Telefone:</label>
+      <input class="verify--form--div--input"
+             type="text"
+             mask="(00) 00000-0000"
+             [dropSpecialCharacters]="false"
+             inputmode="decimal"
+             maxlength="15"
+             [(ngModel)]="userVerified.phone">
+    </div>
+    <button class="verify--form--verifier-button"
+            *ngIf="!isUserVerified"
+            [class.disable]="!canVerify()"
+            (click)="verifyUsers()">Verificar usuário
+    </button>
+  </div>
+  <div *ngIf="isUserVerified" class="verify--verified-fields">
+    <div class="verify--verified-fields--div">
+      <label>Material:</label>
+      <select class="verify--verified-fields--div--input" [(ngModel)]="recycle.material">
+        <option [value]="materialsEnum.GLASS">{{ translatedList[materialsEnum.GLASS] }}</option>
+        <option [value]="materialsEnum.PLASTIC">{{ translatedList[materialsEnum.PLASTIC] }}</option>
+        <option [value]="materialsEnum.PAPER">{{ translatedList[materialsEnum.PAPER] }}</option>
+        <option [value]="materialsEnum.CARDBOARD">{{ translatedList[materialsEnum.CARDBOARD] }}</option>
+        <option [value]="materialsEnum.METAL">{{ translatedList[materialsEnum.METAL] }}</option>
+        <option [value]="materialsEnum.WOOD">{{ translatedList[materialsEnum.WOOD] }}</option>
+        <option [value]="materialsEnum.ORGANICS">{{ translatedList[materialsEnum.ORGANICS] }}</option>
+      </select>
+    </div>
+
+    <div class="verify--verified-fields--div">
+      <label>Peso:</label>
+      <input class="verify--verified-fields--div--input"
+             [(ngModel)]="recycle.weight">
+    </div>
+
+    <div class="file-div">
+      <label class="verify--verified-fields--recycle-image--lb">Arquivo de confirmação:</label>
+
+      <div class="verify--verified-fields--recycle-image" [style.padding]="!recycle.imageUrl[0] ? '1rem 0 1rem 0' : '0'">
+        <label *ngIf="!recycle.imageUrl[0]" (click)="inputElement.click()">Selecione o confirmação</label>
+        <input #inputElement
+               type="file"
+               accept="image/png, image/jpg, image/jpeg"
+               (change)="getFirst($event)">
+        <img [class.verify--verified-fields--recycle-image--img]="recycle.imageUrl[0]" [src]="recycle.imageUrl[0]" alt="">
+      </div>
+
+      <div class="verify--verified-fields--recycle-image" [style.padding]="!recycle.imageUrl[1] ? '1rem 0' : '0'">
+        <label *ngIf="!recycle.imageUrl[1]" (click)="inputSecond.click()">Selecione o confirmação</label>
+        <input #inputSecond
+               type="file"
+               accept="image/png, image/jpg, image/jpeg"
+               (change)="getSecond($event)">
+        <img [class.verify--verified-fields--recycle-image--img]="recycle.imageUrl[1]" [src]="recycle.imageUrl[1]" alt="">
+      </div>
+    </div>
+
+    <button class="verify--form--submit" (click)="onSubmit()">Finalizar</button>
+
+  </div>
+</div>

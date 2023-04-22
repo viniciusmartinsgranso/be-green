@@ -25,11 +25,17 @@ export class NavbarComponent {
         if (routerEvent.url.includes('/collect-points'))
           this.currentNavbar = NavbarEnum.COLLECT_POINTS;
 
-        if (routerEvent.url.includes('/learn'))
-          this.currentNavbar = NavbarEnum.LEARN;
-
         if (routerEvent.url.includes('/admin'))
           this.currentNavbar = NavbarEnum.ADMIN;
+
+        if (routerEvent.url.includes('/home'))
+          this.currentNavbar = NavbarEnum.HOME;
+
+        if (routerEvent.url.includes('/create-post'))
+          this.currentNavbar = NavbarEnum.CREATE_POST;
+
+        if (routerEvent.url.includes('/verify-user'))
+          this.currentNavbar = NavbarEnum.VERIFY_USER;
       });
 
     this.user = this.userService.get();
@@ -39,12 +45,12 @@ export class NavbarComponent {
     return this.user.role === 'admin';
   }
 
-  public get isCompany(): boolean {
-    return this.user.role === 'company';
-  }
-
   public get isUser(): boolean {
     return this.user.role === 'user';
+  }
+
+  public get isCompany(): boolean {
+    return this.user.role === 'company';
   }
 
   public currentNavbar: NavbarEnum = NavbarEnum.COLLECT_POINTS;
@@ -53,16 +59,16 @@ export class NavbarComponent {
 
   public adminList: NavbarItemInterface[] = [
     {
+      type: NavbarEnum.HOME,
+      link: '/home',
+      icon: 'assets/images/home.svg',
+      iconActivated: 'assets/images/selected-home.svg',
+    },
+    {
       type: NavbarEnum.COLLECT_POINTS,
       link: '/collect-points',
       icon: 'assets/images/collect-points.svg',
       iconActivated: 'assets/images/selected-collect-points.svg',
-    },
-    {
-      type: NavbarEnum.LEARN,
-      link: '/learn',
-      icon: 'assets/images/learn.svg',
-      iconActivated: 'assets/images/selected-learn.svg',
     },
     {
       type: NavbarEnum.ADMIN,
@@ -71,11 +77,17 @@ export class NavbarComponent {
       iconActivated: 'assets/images/selected-collect-points.svg',
     },
     {
-      type: NavbarEnum.COMPANY,
-      link: '/company',
+      type: NavbarEnum.CREATE_POST,
+      link: '/create-post',
       icon: 'assets/images/collect-points.svg',
       iconActivated: 'assets/images/selected-collect-points.svg',
     },
+    {
+      type: NavbarEnum.VERIFY_USER,
+      link: '/verify-user',
+      icon: 'assets/images/company.svg',
+      iconActivated: 'assets/images/selected-company.svg',
+    }
   ];
 
   public userList: NavbarItemInterface[] = [
@@ -86,26 +98,20 @@ export class NavbarComponent {
       iconActivated: 'assets/images/selected-collect-points.svg',
     },
     {
-      type: NavbarEnum.LEARN,
-      link: '/learn',
-      icon: 'assets/images/learn.svg',
-      iconActivated: 'assets/images/selected-learn.svg',
+      type: NavbarEnum.HOME,
+      link: '/home',
+      icon: 'assets/images/home.svg',
+      iconActivated: 'assets/images/selected-home.svg',
     },
   ];
 
   public companyList: NavbarItemInterface[] = [
     {
-      type: NavbarEnum.COMPANY,
-      link: '/company',
-      icon: 'assets/images/collect-points.svg',
-      iconActivated: 'assets/images/selected-collect-points.svg',
-    },
-    {
-      type: NavbarEnum.LEARN,
-      link: '/learn',
-      icon: 'assets/images/learn.svg',
-      iconActivated: 'assets/images/selected-learn.svg',
-    },
-  ];
+      type: NavbarEnum.VERIFY_USER,
+      link: '/verify-user',
+      icon: 'assets/images/company.svg',
+      iconActivated: 'assets/images/selected-company.svg',
+    }
+  ]
 
 }

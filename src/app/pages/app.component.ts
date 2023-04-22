@@ -1,14 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import firebase from 'firebase/compat';
 import { filter, Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
+import initializeApp = firebase.initializeApp;
+import app = firebase.app;
+import { getAnalytics } from "firebase/analytics";
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly userService: UserService,
@@ -39,6 +43,7 @@ export class AppComponent {
         updatedAt: new Date(),
         password: '123456',
         confirmPassword: '123456',
+        address: ''
       });
     }
   }
@@ -48,6 +53,21 @@ export class AppComponent {
   public routesWithoutNavbar: string[] = ['/login'];
 
   public routeSubscription: Subscription;
+
+  public firebaseConfig = {
+    apiKey: "AIzaSyBFQV9Zh-llXE_3rLRjWOY2SxhtwYaVZyY",
+    authDomain: "be-green-6e8dc.firebaseapp.com",
+    projectId: "be-green-6e8dc",
+    storageBucket: "be-green-6e8dc.appspot.com",
+    messagingSenderId: "400858493652",
+    appId: "1:400858493652:web:ccbe8bcbad9dbd43be0141",
+    measurementId: "G-9HJZ971K5V"
+  };
+
+  public ngOnInit(): void {
+    // const app = initializeApp(this.firebaseConfig);
+    // const analytics = getAnalytics(app);
+  }
 
   public async ngOnDestroy(): Promise<void> {
     this.routeSubscription.unsubscribe();

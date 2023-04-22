@@ -1,4 +1,3 @@
-import { RolesEnum } from '../enums/roles.enum';
 import { BaseCrudProxy } from './base.crud.proxy';
 
 export interface UserProxy extends BaseCrudProxy {
@@ -6,4 +5,7 @@ export interface UserProxy extends BaseCrudProxy {
   name: string;
   role: string;
   password: string;
+  cpf?: string;
+  cnpj?: string;
+  phone?: string;
 }

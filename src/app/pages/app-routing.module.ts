@@ -12,10 +12,6 @@ const routes: Routes = [
     loadChildren: () => import('./main/collect-points/collect-points.module').then( m => m.CollectPointsPageModule)
   },
   {
-    path: 'learn',
-    loadChildren: () => import('./main/learn/learn.module').then( m => m.LearnPageModule)
-  },
-  {
     path: 'admin',
     loadChildren: () => import('./main/admin/admin.module').then( m => m.AdminPageModule)
   },
@@ -28,8 +24,12 @@ const routes: Routes = [
     loadChildren: () => import('./main/home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'company',
-    loadChildren: () => import('./main/company/company.module').then( m => m.CompanyPageModule)
+    path: 'create-post',
+    loadChildren: () => import('./main/create-post/create-post.module').then( m => m.CreatePostPageModule)
+  },
+  {
+    path: 'verify-user',
+    loadChildren: () => import('./main/verify-user/verify-user.module').then( m => m.VerifyUserPageModule)
   },
   {
     path: '**',

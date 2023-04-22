@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RolesEnum } from '../../models/enums/roles.enum';
 import { LoginPayload } from '../../models/payloads/login.payload';
 import { RegisterPayload } from '../../models/payloads/create-user.payload';
 import { UserProxy } from '../../models/proxies/user.proxy';
@@ -40,11 +39,10 @@ export class LoginPage implements OnInit {
     role: '',
     password: '',
     confirmPassword: '',
+    address: '',
     createdAt: new Date(),
     updatedAt: new Date(),
-  }
-
-  public roles: typeof RolesEnum = RolesEnum;
+  };
 
   public selectedRole: number = 0;
 
@@ -56,7 +54,7 @@ export class LoginPage implements OnInit {
   }
 
   public async login(): Promise<void> {
-    if (!this.canLogin()) {return;}
+    if (!this.canLogin()) return;
 
     const canLogin = await this.userService.login(this.loginPayload);
 
@@ -65,16 +63,21 @@ export class LoginPage implements OnInit {
     const user: UserProxy = table ? JSON.parse(table) : {};
 
     if (canLogin) {
-      if (user.role === 'company')
-        await this.router.navigateByUrl('/home');
+      switch (user.role) {
+        case ('company'):
+          await this.router.navigateByUrl('/home');
+          break;
 
-      if (user.role === 'user')
-        await this.router.navigateByUrl('/learn')
+        case ('user'):
+          await this.router.navigateByUrl('/learn');
+          break;
 
-      else
-        await this.router.navigateByUrl('/admin')
+        case ('admin'):
+          await this.router.navigateByUrl('/home');
+          break;
+      }
     } else {
-      return void await this.helper.showToast('Usuário ou senha incorreta!');
+      await this.helper.showToast('Usuário ou senha incorreta!');
     }
   }
 
@@ -84,40 +87,36 @@ export class LoginPage implements OnInit {
 
     return isValidEmail(this.registerPayload.email) && isValidEmail(this.registerPayload.confirmEmail)
       && this.registerPayload.email === this.registerPayload.confirmEmail
-      && isValidPassword(this.registerPayload.password) && isValidPassword(this.registerPayload.confirmPassword)
+      && this.registerPayload.password.length > 6 && this.registerPayload.confirmPassword.length > 6
       && this.registerPayload.password === this.registerPayload.confirmPassword
+      && this.registerPayload.address.length > 5
       && this.registerPayload.name.length > 3
       && isUser || (isCompany && this.registerPayload.cnpj?.length === 18)
-  }
-
-  public isCompany(): boolean {
-    if (this.registerPayload.role === 'company')
-      return this.registerPayload.cnpj?.length === 18;
-
-    else return true;
+      && isCompany || (isUser && this.registerPayload.cpf?.length === 14)
+      && isCompany || (isUser && this.registerPayload.phone?.length === 15);
   }
 
   public async register(): Promise<void> {
-    if(!this.canRegister()) return;
+    if (!this.canRegister()) return;
 
-    await this.userService.create(this.registerPayload);
+    if (!this.userService.create(this.registerPayload))
+      return void await this.helper.showToast('Usuário ou senha incorretos, tente novamente.');
 
-    if (this.registerPayload.role === 'user')
-      await this.router.navigateByUrl('/learn');
+    const user = this.userService.get()
+    switch (user.role) {
+      case ('user'):
+        await this.router.navigateByUrl('/learn');
+        break;
 
-    if (this.registerPayload.role === 'company')
-      await this.router.navigateByUrl('/company');
+      case('company'):
+        await this.router.navigateByUrl('/company');
+        break;
+
+      default:
+        await this.router.navigateByUrl('/learn');
+    }
 
     await this.helper.showToast('Bem vindo(a) ao Be Green!');
-  }
-
-  public applyMask(cnpj: any): void {
-    this.registerPayload.cnpj = cnpj.replace(/\D/g, '')
-      .replace(/(\d{2})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d)/, '$1/$2')
-      .replace(/(\d{4})(\d)/, '$1-$2')
-      .replace(/(-\d{2})\d+?$/, '$1');
   }
 
 }

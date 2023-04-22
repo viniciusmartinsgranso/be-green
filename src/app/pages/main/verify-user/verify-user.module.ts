@@ -4,19 +4,21 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 import { NgxMaskModule } from 'ngx-mask';
+import { MaterialPipeModule } from '../../../pipes/material.pipe';
 
-import { LoginPageRoutingModule } from './login-routing.module';
+import { VerifyUserPageRoutingModule } from './verify-user-routing.module';
 
-import { LoginPage } from './login.page';
+import { VerifyUserPage } from './verify-user.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule,
+    VerifyUserPageRoutingModule,
+    MaterialPipeModule,
     NgxMaskModule,
   ],
-  declarations: [LoginPage]
+  declarations: [VerifyUserPage]
 })
-export class LoginPageModule {}
+export class VerifyUserPageModule {}

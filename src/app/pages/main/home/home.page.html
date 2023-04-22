@@ -1,9 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>home</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="home">
+  <div class="home--img-back">
+    <img class="home--img-back--logo" src="assets/images/be-green-logo.png">
+  </div>
+  <div class="home--hello">
+    <p>Oi, <strong>{{ user.name }}</strong></p>
+  </div>
 
-<ion-content>
+  <div class="home--occurrence">
+    <h3>Sustentabilidade</h3>
+    <div class="home--occurrence--type" *ngFor="let item of sustentabilityList">
+      <img src="assets/images/aaaa.jpg">
+      <img src="assets/images/aaaa.jpg">
+      <img src="assets/images/aaaa.jpg">
+      <img src="assets/images/aaaa.jpg">
+      <img src="assets/images/aaaa.jpg">
+    </div>
+  </div>
 
-</ion-content>
+  <div class="home--occurrence">
+    <h3>Meio Ambiente</h3>
+    <div class="home--occurrence--type">
+      <img src="assets/images/aaaa.jpg">
+      <img src="assets/images/aaaa.jpg">
+      <img src="assets/images/aaaa.jpg">
+      <img src="assets/images/aaaa.jpg">
+      <img src="assets/images/aaaa.jpg">
+    </div>
+  </div>
+</div>

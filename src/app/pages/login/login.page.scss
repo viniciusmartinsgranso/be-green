@@ -3,7 +3,7 @@
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #4ec858;
+  background: var(--green-light-app-style);
   padding: 2rem;
   font-size: 1.3rem;
   animation: fade 1s ease-in-out;
@@ -46,7 +46,7 @@
 
       &--login {
         padding: 1rem;
-        background: #006526;
+        background: var(--dark-green-button);
         border-radius: 5rem;
         font-size: 1.4rem;
         font-weight: bold;
@@ -54,7 +54,7 @@
 
       &--register {
         padding: 1rem;
-        background: #eaeaea;
+        background: var(--white-button);
         color: black;
         border-radius: 5rem;
         font-weight: bold;
@@ -63,57 +63,54 @@
     }
   }
 
-    &--back {
-      width: 3rem;
-      height: 3rem;
+  &--back {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  &--header {
+    width: 100%;
+
+    h1 {
+      font-weight: bold;
     }
+  }
 
-    &--header {
-      width: 100%;
-      h1 {
-        font-weight: bold;
-      }
-    }
+  &--form {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
 
-    &--form {
-      display: flex;
-      flex-direction: column;
-      gap: .4rem;
-
-      label {
-        font-weight: bold;
-      }
-
-      &--input {
-        padding: 1rem;
-        background: #d4d4d4;
-        outline: none;
-        border: none;
-        border-radius: 0.5rem;
-        color: black;
-      }
-    }
-
-    &--submit {
-      padding: 1rem;
-      background: #006526;
-      border-radius: 5rem;
-      font-size: 1.4rem;
+    label {
       font-weight: bold;
     }
 
-    &--sub-label {
-      font-size: 1.3rem;
-
-      a {
-        text-decoration: none;
-        color: white;
-        font-weight: bold;
-      }
+    &--input {
+      padding: 1rem;
+      background: #d4d4d4;
+      outline: none;
+      border: none;
+      border-radius: 0.5rem;
+      color: black;
     }
-  //}
+  }
 
-  &--register {
+  &--submit {
+    padding: 1rem;
+    background: var(--dark-green-button);
+    border-radius: 5rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+  &--sub-label {
+    font-size: 1.3rem;
+
+    a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
   }
 }
 
@@ -210,13 +207,13 @@
 
 @keyframes animate {
 
-  0%{
+  0% {
     transform: translateY(0) rotate(0deg);
     opacity: .7;
     border-radius: 0;
   }
 
-  100%{
+  100% {
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;
     border-radius: 50%;
