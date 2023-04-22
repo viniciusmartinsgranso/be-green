@@ -51,7 +51,7 @@ export class UserService {
       return false;
 
     localStorage.removeItem('loggedUser');
-    user.id = user.id === 0 ? storageUsers[storageUsers.length - 1].id + 1 : 1;
+    user.id = user.id === 0 ? 1 : storageUsers[storageUsers.length - 1].id + 1;
 
     storageUsers.push(user);
     localStorage.setItem('users', JSON.stringify(storageUsers));
