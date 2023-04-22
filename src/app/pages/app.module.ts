@@ -6,7 +6,7 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { NgxMaskModule } from 'ngx-mask';
-import { firebaseConfig } from '../../environments/environment';
+import { firebaseConfig } from '../../environments/firebaseconfig';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 
 import { AppComponent } from './app.component';
