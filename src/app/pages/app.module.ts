@@ -6,7 +6,7 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { NgxMaskModule } from 'ngx-mask';
-import { environment } from '../../environments/environment';
+import { firebaseConfig } from '../../environments/environment';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 
 import { AppComponent } from './app.component';
@@ -18,7 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     NgxMaskModule.forRoot(),
   ],
