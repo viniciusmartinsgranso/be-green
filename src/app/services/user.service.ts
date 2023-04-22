@@ -46,7 +46,6 @@ export class UserService {
 
     const haveUserWithSameEmail = storageUsers.find(item => item.email === user.email);
 
-    console.log(haveUserWithSameEmail);
     if (haveUserWithSameEmail)
       return false;
 
@@ -76,7 +75,6 @@ export class UserService {
       }
     });
 
-    console.log(newUser);
     storageUsers.push(newUser);
     localStorage.setItem('users', JSON.stringify(storageUsers));
     localStorage.setItem('loggedUser', JSON.stringify(storageUsers));
@@ -140,7 +138,6 @@ export class UserService {
     if (!loggedUser) return false;
 
     localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
-    console.log(localStorage.getItem('loggedUser'));
     return true;
   }
 
