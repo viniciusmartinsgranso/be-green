@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import firebase from 'firebase/compat';
 import { filter, Subscription } from 'rxjs';
+import { RegisterPayload } from '../models/payloads/create-user.payload';
 import { UserService } from '../services/user.service';
 import initializeApp = firebase.initializeApp;
 import app = firebase.app;
@@ -33,7 +34,10 @@ export class AppComponent implements OnInit {
     const usersList = this.userService.getUsers();
 
     if (!usersList) {
-      this.userService.create({
+      const table = localStorage.getItem('users');
+      const storageUsers: RegisterPayload[] = table ? JSON.parse(table) : [];
+
+      const admin = {
         id: 1,
         email: 'admin@email.com',
         role: 'admin',
@@ -43,8 +47,12 @@ export class AppComponent implements OnInit {
         updatedAt: new Date(),
         password: '123456',
         confirmPassword: '123456',
-        address: ''
-      });
+        address: '',
+      };
+
+      storageUsers.push(admin);
+
+      localStorage.setItem('users', JSON.stringify(storageUsers));
     }
   }
 
