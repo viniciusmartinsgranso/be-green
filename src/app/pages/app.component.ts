@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
 
     if (!usersList) {
       this.userService.create({
-        id: 0,
+        id: 1,
         email: 'admin@email.com',
         role: 'admin',
         confirmEmail: 'admin@email.com',

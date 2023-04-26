@@ -8,23 +8,25 @@
 
   <div class="home--occurrence">
     <h3>Sustentabilidade</h3>
-    <div class="home--occurrence--type" *ngFor="let item of sustentabilityList">
-      <img src="assets/images/aaaa.jpg">
-      <img src="assets/images/aaaa.jpg">
-      <img src="assets/images/aaaa.jpg">
-      <img src="assets/images/aaaa.jpg">
-      <img src="assets/images/aaaa.jpg">
+    <div class="home--occurrence--type" *ngIf="!sustentabilityList.length; else emptyList">
+      <img [src]="item.videoUrl" *ngFor="let item of sustentabilityList">
+<!--      <video #sustentabilityVideos autoplay="false" muted="true" *ngFor="let item of sustentabilityList">-->
+<!--        <source [src]="item.videoUrl">-->
+<!--        Your browser does not support HTML video.-->
+<!--      </video>-->
     </div>
+    <ng-template #emptyList>
+      <h3>Oops... Ainda não existem itens no momento.</h3>
+    </ng-template>
   </div>
 
   <div class="home--occurrence">
     <h3>Meio Ambiente</h3>
-    <div class="home--occurrence--type">
-      <img src="assets/images/aaaa.jpg">
-      <img src="assets/images/aaaa.jpg">
-      <img src="assets/images/aaaa.jpg">
-      <img src="assets/images/aaaa.jpg">
-      <img src="assets/images/aaaa.jpg">
+    <div class="home--occurrence--type" *ngIf="!ambientList.length; else emptyList">
+      <video #ambientVideos autoplay="false" muted="true" *ngFor="let item of ambientList">
+        <source [src]="item.videoUrl">
+        Your browser does not support HTML video.
+      </video>
     </div>
   </div>
 </div>

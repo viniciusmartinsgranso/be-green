@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FunctionalitiesEnum } from '../../../models/enums/functionalities.enum';
 import { PostProxy } from '../../../models/proxies/post.proxy';
@@ -23,13 +23,19 @@ export class HomePage implements OnInit {
     this.user = this.userService.get();
   }
 
+  @ViewChild('sustentabilityVideos')
+  public sustentabilityVideos!: HTMLVideoElement[];
+
+  @ViewChild('ambientVideos')
+  public ambientVideos!: HTMLVideoElement[];
+
   public user!: UserProxy;
 
   public postList: PostProxy[] = [
     {
       type: FunctionalitiesEnum.SUSTENTABILITY,
       title: 'aa',
-      videoUrl: 'assets/images/aaaa.jpg',
+      videoUrl: '',
       id: 1,
       updatedAt: new Date(),
       createdAt: new Date(),
@@ -37,7 +43,7 @@ export class HomePage implements OnInit {
     {
       type: FunctionalitiesEnum.SUSTENTABILITY,
       title: 'aa',
-      videoUrl: 'assets/images/aaaa.jpg',
+      videoUrl: '',
       id: 2,
       updatedAt: new Date(),
       createdAt: new Date(),
@@ -45,7 +51,39 @@ export class HomePage implements OnInit {
     {
       type: FunctionalitiesEnum.SUSTENTABILITY,
       title: 'aa',
-      videoUrl: 'assets/images/aaaa.jpg',
+      videoUrl: '',
+      id: 3,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+    },
+    {
+      type: FunctionalitiesEnum.SUSTENTABILITY,
+      title: 'aa',
+      videoUrl: '',
+      id: 3,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+    },
+    {
+      type: FunctionalitiesEnum.SUSTENTABILITY,
+      title: 'aa',
+      videoUrl: '',
+      id: 3,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+    },
+    {
+      type: FunctionalitiesEnum.SUSTENTABILITY,
+      title: 'aa',
+      videoUrl: '',
+      id: 3,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+    },
+    {
+      type: FunctionalitiesEnum.AMBIENT,
+      title: 'aa',
+      videoUrl: '',
       id: 3,
       updatedAt: new Date(),
       createdAt: new Date(),
@@ -72,11 +110,14 @@ export class HomePage implements OnInit {
 
   public getPosts(): void {
     this.postList = this.postService.get();
+    console.log(this.postList);
   }
 
   public filterPosts(): void {
     this.ambientList = this.postList.filter(item => item.type === FunctionalitiesEnum.AMBIENT);
+    console.log(this.ambientList);
     this.sustentabilityList = this.postList.filter(item => item.type === FunctionalitiesEnum.SUSTENTABILITY);
+    console.log(this.sustentabilityList);
   }
 
 }

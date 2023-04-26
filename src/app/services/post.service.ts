@@ -10,8 +10,8 @@ export class PostService {
   constructor() { }
 
   public get(): PostProxy[] {
-    const post = localStorage.getItem('post');
-    return post ? JSON.parse(post) : false;
+    const post = localStorage.getItem('posts');
+    return post ? JSON.parse(post) : [];
   }
 
   public create(post: PostProxy): void {

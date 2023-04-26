@@ -32,7 +32,11 @@
     &--type {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 0.3rem;
+
+      video {
+        width: 6rem;
+        height: 6rem;
+      }
     }
   }
 }
