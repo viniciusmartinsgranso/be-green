@@ -26,8 +26,6 @@ export class CollectPointsPage implements OnInit {
       this.isAdmin = true;
   }
 
-  public geoloc: Subscription = new Subscription;
-
   public map!: Leaflet.Map;
 
   public currentLocation: LocationInterface = {
@@ -44,6 +42,15 @@ export class CollectPointsPage implements OnInit {
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
 
+  public currentIcon = Leaflet.icon({
+    iconUrl: 'assets/images/current-location.png',
+    iconSize:     [38, 40], // size of the icon
+    shadowSize:   [50, 9], // size of the shadow
+    iconAnchor:   [22, 39], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 7],  // the same for the shadow
+    popupAnchor:  [-3, -131] // point from which the popup should open relative to the iconAnchor
+  });
+
   public collectPoints: LocationInterface[] = [
     {
       latitude: -23.477656,
@@ -58,19 +65,16 @@ export class CollectPointsPage implements OnInit {
   public isAdmin: boolean = false;
 
   public ngOnInit(): void {
-    this.geoloc = this.geolocation$.pipe(take(1)).subscribe(position => {
+    this.geolocation$.pipe(take(1)).subscribe(position => {
       this.successCallback(position);
       this.initMap();
-      this.collectPoints.push(this.currentLocation);
-      console.log(this.collectPoints);
+
       this.collectPoints.forEach(item => {
         Leaflet.marker([item.latitude, item.longitude], {icon: this.greenIcon}).addTo(this.map);
       })
-    });
-  }
 
-  public ngOnDestroy(): void {
-    this.geoloc.unsubscribe();
+      Leaflet.marker([this.currentLocation.latitude, this.currentLocation.longitude], { icon: this.currentIcon }).addTo(this.map);
+    });
   }
 
   private initMap(): void {
