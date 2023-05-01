@@ -1,0 +1,29 @@
+<div class="show-collect">
+  <h3>Cadastre os pontos de coleta:</h3>
+
+  <a class="show-collect--exit" (click)="modalController.dismiss()">X</a>
+
+  <div class="show-collect--form">
+    <div class="show-collect--form--div">
+      <label>Nome:</label>
+      <input class="show-collect--form--div--input" type="text" [(ngModel)]="point.name" placeholder="Informe o nome">
+    </div>
+
+    <div class="show-collect--form--div">
+      <label>Endereço:</label>
+      <input class="show-collect--form--div--input" type="text" [(ngModel)]="point.address" placeholder="Informe o nome">
+    </div>
+
+    <div class="show-collect--form--div">
+      <label>Latitude:</label>
+      <input class="show-collect--form--div--input" type="number" [(ngModel)]="point.locale.latitude" placeholder="Informe a latitude">
+    </div>
+
+    <div class="show-collect--form--div">
+      <label>Longitude:</label>
+      <input class="show-collect--form--div--input" type="number" [(ngModel)]="point.locale.longitude" placeholder="Informe a longitude">
+    </div>
+
+    <button class="show-collect--form--submit" (click)="createPoint()">Cadastrar</button>
+  </div>
+</div>

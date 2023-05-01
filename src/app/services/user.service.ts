@@ -50,7 +50,7 @@ export class UserService {
       return false;
 
     localStorage.removeItem('loggedUser');
-    user.id = storageUsers[storageUsers.length - 1].id + 1;
+    storageUsers[storageUsers.length - 1] === undefined ? user.id = 0 : user.id = storageUsers[storageUsers.length - 1].id + 1;
 
     storageUsers.push(user);
     localStorage.setItem('users', JSON.stringify(storageUsers));

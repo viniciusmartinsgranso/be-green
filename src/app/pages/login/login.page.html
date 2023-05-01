@@ -47,7 +47,8 @@
 
     <button class="login--submit" [class.disable]="!canLogin()" (click)="login()">Login</button>
     <div class="login--sub-label">
-      <label>Ainda não possui uma conta? <a (click)="isLogin = !isLogin">Cadastre-se</a></label>
+      <label>Ainda não possui uma conta?</label>
+      <a (click)="isLogin = !isLogin">Cadastre-se</a>
     </div>
   </ng-container>
 

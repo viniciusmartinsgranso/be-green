@@ -17,7 +17,7 @@ export class RecycleService {
     const table = localStorage.getItem('recycles');
     const storageRecycles: RecycleProxy[] = table ? JSON.parse(table) : [];
 
-    recycle.id = recycle.id === 0 ? 1 : storageRecycles[storageRecycles.length - 1].id + 1;
+    storageRecycles[storageRecycles.length - 1] === undefined ? recycle.id = 0 : recycle.id = storageRecycles[storageRecycles.length - 1].id + 1;
 
     storageRecycles.push(recycle);
     localStorage.setItem('recycles', JSON.stringify(storageRecycles));

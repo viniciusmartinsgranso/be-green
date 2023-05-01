@@ -1,9 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { GEOLOCATION_SUPPORT, GeolocationService } from '@ng-web-apis/geolocation';
-import { LatLngExpression } from 'leaflet';
 import * as Leaflet from 'leaflet';
-import { Observable, Subscription, take } from 'rxjs';
+import { take } from 'rxjs';
+import { CreateCollectPointComponent } from '../../../components/modals/create-collect-point/create-collect-point.component';
+import { ShowCollectPointsComponent } from '../../../components/modals/show-collect-points/show-collect-points.component';
 import { LocationInterface } from '../../../models/interfaces/location.interface';
+import { CollectPointProxy } from '../../../models/proxies/collect-point.proxy';
+import { CollectService } from '../../../services/collect.service';
 import { HelperService } from '../../../services/helper.service';
 import { UserService } from '../../../services/user.service';
 
@@ -12,13 +17,16 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './collect-points.page.html',
   styleUrls: ['./collect-points.page.scss'],
 })
-export class CollectPointsPage implements OnInit {
+export class CollectPointsPage {
 
   constructor(
     private readonly helper: HelperService,
     private readonly geolocation$: GeolocationService,
     private readonly userService: UserService,
     @Inject(GEOLOCATION_SUPPORT) private readonly geolocationSupport: boolean,
+    public readonly router: Router,
+    private readonly modalController: ModalController,
+    private readonly collectService: CollectService,
   ) {
     const resp = this.userService.get();
 
@@ -51,26 +59,49 @@ export class CollectPointsPage implements OnInit {
     popupAnchor:  [-3, -131] // point from which the popup should open relative to the iconAnchor
   });
 
-  public collectPoints: LocationInterface[] = [
+  public collectPoints: CollectPointProxy[] = [
     {
-      latitude: -23.477656,
-      longitude: -47.4929819,
+      name: 'Vini',
+      address: 'Vini',
+      locale: {
+        latitude: -23.477656,
+        longitude: -47.4929819,
+      },
+      updatedAt: new Date(),
+      createdAt: new Date(),
+      id: 0,
     },
     {
-      latitude: -23.3975345,
-      longitude: -47.3801152,
+      name: 'Vini',
+      address: 'Vini',
+      locale: {
+        latitude: -23.3975345,
+        longitude: -47.3801152,
+      },
+      updatedAt: new Date(),
+      createdAt: new Date(),
+      id: 0,
     },
   ];
 
   public isAdmin: boolean = false;
 
-  public ngOnInit(): void {
+  public toggle: boolean = false;
+
+  public wasOpened: boolean = false;
+
+  public closeButton: boolean = false;
+
+  public ionViewDidEnter(): void {
+    this.collectPoints = [];
+    this.collectPoints = this.collectService.get();
+
     this.geolocation$.pipe(take(1)).subscribe(position => {
       this.successCallback(position);
       this.initMap();
 
       this.collectPoints.forEach(item => {
-        Leaflet.marker([item.latitude, item.longitude], {icon: this.greenIcon}).addTo(this.map);
+        Leaflet.marker([item.locale.latitude, item.locale.longitude], {icon: this.greenIcon}).addTo(this.map);
       })
 
       Leaflet.marker([this.currentLocation.latitude, this.currentLocation.longitude], { icon: this.currentIcon }).addTo(this.map);
@@ -96,4 +127,21 @@ export class CollectPointsPage implements OnInit {
     this.currentLocation.longitude = position.coords.longitude;
   }
 
+  public async openLocals(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: ShowCollectPointsComponent,
+      cssClass: 'local-backdrop'
+    });
+
+    await modal.present();
+  }
+
+  public async openCreateLocal(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: CreateCollectPointComponent,
+      cssClass: 'local-backdrop',
+    });
+
+    await modal.present()
+  }
 }

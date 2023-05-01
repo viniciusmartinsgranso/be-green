@@ -102,21 +102,19 @@ export class LoginPage implements OnInit {
     if (!this.userService.create(this.registerPayload))
       return void await this.helper.showToast('Usuário ou senha incorretos, tente novamente.');
 
-    const user = this.userService.get()
-    switch (user.role) {
-      case ('user'):
-        await this.router.navigateByUrl('/learn');
-        break;
+    const user = this.userService.get();
 
-      case('company'):
-        await this.router.navigateByUrl('/company');
-        break;
-
-      default:
-        await this.router.navigateByUrl('/learn');
+    if (user.role === 'user') {
+      await this.router.navigateByUrl('/collect-points');
+      await this.helper.showToast('Bem vindo(a) ao Be Green!');
+      return;
     }
 
-    await this.helper.showToast('Bem vindo(a) ao Be Green!');
+    if (user.role === 'company') {
+      await this.router.navigateByUrl('/company');
+      await this.helper.showToast('Bem vindo(a) ao Be Green!');
+      return;
+    }
   }
 
 }

@@ -18,7 +18,7 @@ export class PostService {
     const table = localStorage.getItem('posts');
     const storagePosts: PostProxy[] = table ? JSON.parse(table) : [];
 
-    post.id = post.id === 0 ? 1 : storagePosts[storagePosts.length - 1].id + 1;
+    storagePosts[storagePosts.length - 1] === undefined ? post.id = 0 : post.id = storagePosts[storagePosts.length - 1].id + 1;
 
     storagePosts.push(post);
     localStorage.setItem('posts', JSON.stringify(storagePosts));

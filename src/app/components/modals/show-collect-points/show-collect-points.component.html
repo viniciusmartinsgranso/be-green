@@ -1,0 +1,10 @@
+<div class="show-collect">
+  <h3>Abaixo, todos os locais de coleta:</h3>
+
+  <a class="show-collect--exit" (click)="modalController.dismiss()">X</a>
+
+  <div class="show-collect--items" *ngFor="let item of points">
+    <label style="font-weight: bold">{{ item.name }}</label>
+    <label>{{ item.address }}</label>
+  </div>
+</div>

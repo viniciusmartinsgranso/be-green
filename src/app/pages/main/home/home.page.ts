@@ -95,11 +95,6 @@ export class HomePage implements OnInit {
   public sustentabilityList: PostProxy[] = [];
 
   public async ngOnInit(): Promise<void> {
-    if (this.user.role === 'user') {
-      await this.router.navigateByUrl('/learn');
-      return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
-    }
-
     this.getPosts();
     this.filterPosts();
   }

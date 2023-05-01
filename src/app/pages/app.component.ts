@@ -34,9 +34,6 @@ export class AppComponent implements OnInit {
     const usersList = this.userService.getUsers();
 
     if (!usersList) {
-      const table = localStorage.getItem('users');
-      const storageUsers: RegisterPayload[] = table ? JSON.parse(table) : [];
-
       const admin = {
         id: 1,
         email: 'admin@email.com',
@@ -50,9 +47,7 @@ export class AppComponent implements OnInit {
         address: '',
       };
 
-      storageUsers.push(admin);
-
-      localStorage.setItem('users', JSON.stringify(storageUsers));
+      this.userService.create(admin);
     }
   }
 
