@@ -8,12 +8,11 @@
 
   <div class="home--occurrence">
     <h3>Sustentabilidade</h3>
-    <div class="home--occurrence--type" *ngIf="!sustentabilityList.length; else emptyList">
-      <img [src]="item.videoUrl" *ngFor="let item of sustentabilityList">
-<!--      <video #sustentabilityVideos autoplay="false" muted="true" *ngFor="let item of sustentabilityList">-->
-<!--        <source [src]="item.videoUrl">-->
-<!--        Your browser does not support HTML video.-->
-<!--      </video>-->
+    <div class="home--occurrence--type" *ngIf="sustentabilityList.length > 0; else emptyList">
+      <div class="home--occurrence--type--item" *ngFor="let item of sustentabilityList" (click)="redirectToItem(item.id)">
+        <p>{{ item.title }}</p>
+        <iframe class="home--occurrence--type--item--iframe" [src]="item.urlSafe" allow="accelerometer; autoplay; encrypted-midia; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
     </div>
     <ng-template #emptyList>
       <h3>Oops... Ainda não existem itens no momento.</h3>
@@ -22,11 +21,10 @@
 
   <div class="home--occurrence">
     <h3>Meio Ambiente</h3>
-    <div class="home--occurrence--type" *ngIf="!ambientList.length; else emptyList">
-      <video #ambientVideos autoplay="false" muted="true" *ngFor="let item of ambientList">
-        <source [src]="item.videoUrl">
-        Your browser does not support HTML video.
-      </video>
+    <div class="home--occurrence--type" *ngIf="ambientList.length > 0; else emptyList">
+      <div *ngFor="let item of ambientList" >
+        <iframe class="home--occurrence--type--item" width="160" height="110" [src]="item.urlSafe" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 </div>

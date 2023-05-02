@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { UpdateUserPayload } from '../models/payloads/update-user.payload';
 import { PostProxy } from '../models/proxies/post.proxy';
 
 @Injectable({

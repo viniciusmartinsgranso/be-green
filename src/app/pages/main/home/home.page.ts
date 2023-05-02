@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { FunctionalitiesEnum } from '../../../models/enums/functionalities.enum';
 import { PostProxy } from '../../../models/proxies/post.proxy';
@@ -19,100 +20,46 @@ export class HomePage implements OnInit {
     private readonly router: Router,
     private readonly helper: HelperService,
     private readonly postService: PostService,
+    private readonly sanitizer: DomSanitizer,
   ) {
     this.user = this.userService.get();
   }
 
-  @ViewChild('sustentabilityVideos')
-  public sustentabilityVideos!: HTMLVideoElement[];
-
-  @ViewChild('ambientVideos')
-  public ambientVideos!: HTMLVideoElement[];
-
   public user!: UserProxy;
 
-  public postList: PostProxy[] = [
-    {
-      type: FunctionalitiesEnum.SUSTENTABILITY,
-      title: 'aa',
-      videoUrl: '',
-      id: 1,
-      updatedAt: new Date(),
-      createdAt: new Date(),
-    },
-    {
-      type: FunctionalitiesEnum.SUSTENTABILITY,
-      title: 'aa',
-      videoUrl: '',
-      id: 2,
-      updatedAt: new Date(),
-      createdAt: new Date(),
-    },
-    {
-      type: FunctionalitiesEnum.SUSTENTABILITY,
-      title: 'aa',
-      videoUrl: '',
-      id: 3,
-      updatedAt: new Date(),
-      createdAt: new Date(),
-    },
-    {
-      type: FunctionalitiesEnum.SUSTENTABILITY,
-      title: 'aa',
-      videoUrl: '',
-      id: 3,
-      updatedAt: new Date(),
-      createdAt: new Date(),
-    },
-    {
-      type: FunctionalitiesEnum.SUSTENTABILITY,
-      title: 'aa',
-      videoUrl: '',
-      id: 3,
-      updatedAt: new Date(),
-      createdAt: new Date(),
-    },
-    {
-      type: FunctionalitiesEnum.SUSTENTABILITY,
-      title: 'aa',
-      videoUrl: '',
-      id: 3,
-      updatedAt: new Date(),
-      createdAt: new Date(),
-    },
-    {
-      type: FunctionalitiesEnum.AMBIENT,
-      title: 'aa',
-      videoUrl: '',
-      id: 3,
-      updatedAt: new Date(),
-      createdAt: new Date(),
-    },
-  ];
+  public postList: PostProxy[] = [];
 
   public ambientList: PostProxy[] = [];
 
   public sustentabilityList: PostProxy[] = [];
+
+  public types: typeof FunctionalitiesEnum = FunctionalitiesEnum;
 
   public async ngOnInit(): Promise<void> {
     this.getPosts();
     this.filterPosts();
   }
 
-  public async redirectToType(type: string): Promise<void> {
-    await this.router.navigate(['/feed', type]);
-  }
-
   public getPosts(): void {
     this.postList = this.postService.get();
-    console.log(this.postList);
   }
 
   public filterPosts(): void {
-    this.ambientList = this.postList.filter(item => item.type === FunctionalitiesEnum.AMBIENT);
+    console.log(this.postList);
+    this.postList.forEach(item => {
+      item.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(item.videoUrl);
+
+      if (item.type === FunctionalitiesEnum.AMBIENT)
+        this.ambientList.push(item);
+      else
+        this.sustentabilityList.push(item);
+    });
     console.log(this.ambientList);
-    this.sustentabilityList = this.postList.filter(item => item.type === FunctionalitiesEnum.SUSTENTABILITY);
     console.log(this.sustentabilityList);
+  }
+
+  public redirectToItem(id: number): void {
+    console.log(id);
   }
 
 }
