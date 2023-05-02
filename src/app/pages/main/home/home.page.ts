@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { FunctionalitiesEnum } from '../../../models/enums/functionalities.enum';
@@ -13,7 +13,7 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
 
   constructor(
     private readonly userService: UserService,
@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
 
   public types: typeof FunctionalitiesEnum = FunctionalitiesEnum;
 
-  public async ngOnInit(): Promise<void> {
+  public async ionViewDidEnter(): Promise<void> {
     this.getPosts();
     this.filterPosts();
   }

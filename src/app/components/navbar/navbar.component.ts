@@ -79,8 +79,8 @@ export class NavbarComponent {
     {
       type: NavbarEnum.CREATE_POST,
       link: '/create-post',
-      icon: 'assets/images/collect-points.svg',
-      iconActivated: 'assets/images/selected-collect-points.svg',
+      icon: 'assets/images/post.svg',
+      iconActivated: 'assets/images/selected-post.svg',
     },
     {
       type: NavbarEnum.VERIFY_USER,

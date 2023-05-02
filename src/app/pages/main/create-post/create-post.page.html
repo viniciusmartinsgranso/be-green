@@ -1,30 +1,32 @@
-<div class="create-post">
-  <h2>Criar uma nova postagem:</h2>
-  <div class="create-post--form">
-    <div class="create-post--form--div">
-      <label>Título</label>
-      <input class="create-post--form--div--input"
-             [(ngModel)]="post.title"
-             placeholder="Informe o Título"
-             type="text">
-    </div>
+<ion-content>
+  <div class="create-post">
+    <h2>Criar uma nova postagem:</h2>
+    <div class="create-post--form">
+      <div class="create-post--form--div">
+        <label>Título</label>
+        <input class="create-post--form--div--input"
+               [(ngModel)]="post.title"
+               placeholder="Informe o Título"
+               type="text">
+      </div>
 
-    <div class="create-post--form--div">
-      <label>Tipo:</label>
-      <select class="create-post--form--div--input"
-              [(ngModel)]="post.type">
-        <option [value]="functionalities.AMBIENT">{{ translate[functionalities.AMBIENT] }}</option>
-        <option [value]="functionalities.SUSTENTABILITY">{{ translate[functionalities.SUSTENTABILITY] }}</option>
-      </select>
-    </div>
+      <div class="create-post--form--div">
+        <label>Tipo:</label>
+        <select class="create-post--form--div--input"
+                [(ngModel)]="post.type">
+          <option [value]="functionalities.AMBIENT">{{ translate[functionalities.AMBIENT] }}</option>
+          <option [value]="functionalities.SUSTENTABILITY">{{ translate[functionalities.SUSTENTABILITY] }}</option>
+        </select>
+      </div>
 
-    <div class="create-post--form--div">
-      <label>Título</label>
-      <input class="create-post--form--div--input"
-             [(ngModel)]="post.videoUrl"
-             placeholder="Informe o Link do vídeo"
-             type="text">
+      <div class="create-post--form--div">
+        <label>Título</label>
+        <input class="create-post--form--div--input"
+               [(ngModel)]="post.videoUrl"
+               placeholder="Informe o Link do vídeo"
+               type="text">
+      </div>
+      <button class="create-post--form--submit" (click)="onSubmit()">Enviar</button>
     </div>
-    <button class="create-post--form--submit" (click)="onSubmit()">Enviar</button>
   </div>
-</div>
+</ion-content>

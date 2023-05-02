@@ -1,18 +1,20 @@
-<div class="collect">
-  <h3>Os pontos de coletas perto de você:</h3>
-  <div id="map">
-    <button class="collect--create"
-            [class.rotate-button]="toggle"
-            [class.back-rotate]="!toggle && wasOpened"
-            (click)="toggle = !toggle; wasOpened = true">...
-    </button>
-    <ng-container *ngIf="toggle">
-      <div class="modal-start">
-        <div class="modal-start--items">
-          <a (click)="openCreateLocal()" *ngIf="isAdmin">+</a>
-          <a (click)="openLocals()">Locais</a>
+<ion-content>
+  <div class="collect">
+    <h3>Os pontos de coletas perto de você:</h3>
+    <div id="map">
+      <button class="collect--create"
+              [class.rotate-button]="toggle"
+              [class.back-rotate]="!toggle && wasOpened"
+              (click)="toggle = !toggle; wasOpened = true">...
+      </button>
+      <ng-container *ngIf="toggle">
+        <div class="modal-start">
+          <div class="modal-start--items">
+            <a (click)="openCreateLocal()" *ngIf="isAdmin">+</a>
+            <a (click)="openLocals()">Locais</a>
+          </div>
         </div>
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
-</div>
+</ion-content>
