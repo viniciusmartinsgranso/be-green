@@ -142,8 +142,8 @@ export class UserService {
   }
 
   public async logoutUser(): Promise<void> {
-    await this.router.navigateByUrl('/login');
-    return localStorage.removeItem('loggedUser');
+    localStorage.removeItem('loggedUser');
+    return void await this.router.navigateByUrl('/login');
   }
 
 }
