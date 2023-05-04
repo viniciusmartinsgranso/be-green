@@ -117,7 +117,13 @@ export class NavbarComponent {
       link: '/verify-user',
       icon: 'assets/images/company.svg',
       iconActivated: 'assets/images/selected-company.svg',
-    }
+    },
+    {
+      type: NavbarEnum.HOME,
+      link: '/home',
+      icon: 'assets/images/home.svg',
+      iconActivated: 'assets/images/selected-home.svg',
+    },
   ]
 
 }

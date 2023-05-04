@@ -36,6 +36,9 @@ export class HomePage {
   public types: typeof FunctionalitiesEnum = FunctionalitiesEnum;
 
   public async ionViewDidEnter(): Promise<void> {
+    if (!this.user)
+      return void await this.router.navigateByUrl('/login');
+
     this.getPosts();
     this.filterPosts();
   }

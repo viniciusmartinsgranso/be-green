@@ -97,7 +97,7 @@ export class LoginPage implements OnInit {
       && this.registerPayload.password === this.registerPayload.confirmPassword
       && this.registerPayload.address.length > 5
       && this.registerPayload.name.length > 3
-      && isUser || (isCompany && this.registerPayload.cnpj?.length === 18)
+      && isUser || (isCompany && this.registerPayload.cnpj?.length === 19)
       && isCompany || (isUser && this.registerPayload.cpf?.length === 14)
       && isCompany || (isUser && this.registerPayload.phone?.length === 15);
   }
@@ -117,7 +117,7 @@ export class LoginPage implements OnInit {
     }
 
     if (user.role === 'company') {
-      await this.router.navigateByUrl('/company');
+      await this.router.navigateByUrl('/verify-user');
       await this.helper.showToast('Bem vindo(a) ao Be Green!');
       return;
     }

@@ -40,7 +40,7 @@ export class CreatePostPage implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     if (this.user.role === 'user') {
-      await this.router.navigateByUrl('/learn');
+      await this.router.navigateByUrl('/home');
       return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
     }
   }
