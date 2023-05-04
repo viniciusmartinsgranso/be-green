@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ExitAppComponent } from '../../../components/modals/exit-app/exit-app.component';
 import { UserProxy } from '../../../models/proxies/user.proxy';
+import { HelperService } from '../../../services/helper.service';
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -14,6 +16,8 @@ export class UserPage implements OnInit {
   constructor(
     private readonly userService: UserService,
     private readonly modalController: ModalController,
+    private readonly router: Router,
+    private readonly helper: HelperService,
   ) {
     this.user = this.userService.get();
   }
@@ -34,7 +38,12 @@ export class UserPage implements OnInit {
 
   public thirdWidth: number = 0;
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
+    if (!this.user) {
+      await this.router.navigateByUrl('/login');
+      return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
+    }
+
     const totalPercentage = 100;
     this.firstWidth = (this.totalPercentage * this.user.points)/this.firstMeta;
 

@@ -36,8 +36,10 @@ export class HomePage {
   public types: typeof FunctionalitiesEnum = FunctionalitiesEnum;
 
   public async ionViewDidEnter(): Promise<void> {
-    if (!this.user)
-      return void await this.router.navigateByUrl('/login');
+    if (!this.user) {
+      await this.router.navigateByUrl('/login');
+      return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
+    }
 
     this.getPosts();
     this.filterPosts();

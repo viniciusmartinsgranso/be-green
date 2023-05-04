@@ -43,6 +43,16 @@ export class CreatePostPage implements OnInit {
       await this.router.navigateByUrl('/home');
       return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
     }
+
+    if (this.user.role === 'company') {
+      await this.router.navigateByUrl('/home');
+      return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
+    }
+
+    if (!this.user) {
+      await this.router.navigateByUrl('/login');
+      return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
+    }
   }
 
   public getBase64(event: any): void {

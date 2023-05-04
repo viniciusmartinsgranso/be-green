@@ -74,6 +74,12 @@ export class VerifyUserPage implements OnInit {
   public async ngOnInit(): Promise<void> {
     this.user = this.userService.get();
 
+    if (!this.user) {
+      await this.router.navigateByUrl('/login');
+      return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
+    }
+
+
     if (this.user.role === 'user') {
       await this.router.navigateByUrl('/learn');
       return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');

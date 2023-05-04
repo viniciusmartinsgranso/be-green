@@ -47,7 +47,14 @@ export class AppComponent implements OnInit {
         address: '',
       };
 
-      this.userService.create(admin);
+      const table = localStorage.getItem('users');
+      const storageUsers: RegisterPayload[] = table ? JSON.parse(table) : [];
+
+      localStorage.removeItem('loggedUser');
+      storageUsers[storageUsers.length - 1] === undefined ? admin.id = 0 : admin.id = storageUsers[storageUsers.length - 1].id + 1;
+
+      storageUsers.push(admin);
+      localStorage.setItem('users', JSON.stringify(storageUsers));
     }
   }
 
