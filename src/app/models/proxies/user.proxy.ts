@@ -5,6 +5,8 @@ export interface UserProxy extends BaseCrudProxy {
   name: string;
   role: string;
   password: string;
+  points: number;
+  imageUrl: string;
   cpf?: string;
   cnpj?: string;
   phone?: string;

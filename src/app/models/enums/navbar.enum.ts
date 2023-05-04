@@ -4,4 +4,5 @@ export enum NavbarEnum {
   ADMIN = 2,
   CREATE_POST = 3,
   VERIFY_USER = 4,
+  USER = 5,
 }

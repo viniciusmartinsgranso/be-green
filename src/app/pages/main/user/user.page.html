@@ -1,0 +1,48 @@
+<ion-content>
+  <div class="user">
+
+    <div class="user--header">
+      <label>{{ user.name }}</label>
+
+      <div class="user--header--pic">
+        <img [src]="user.imageUrl" *ngIf="user.imageUrl">
+        <label *ngIf="!user.imageUrl">{{ user.name.substring(0, 1) }}</label>
+      </div>
+
+      <button class="user--header--logout" (click)="openExitModal()">
+        <img src="assets/images/exit-app.svg">
+      </button>
+    </div>
+
+    <div class="user--points">
+      <h3>Você atualmente tem {{ userPoints }} pontos.</h3>
+
+      <div class="user--points--show">
+        <h2 *ngIf="firstWidth !== 100">Para 2% de desconto, é necessário 20 pontos</h2>
+        <h2 *ngIf="firstWidth === 100">Parabéns! Você pode resgatar 2% de desconto!</h2>
+        <div class="user--points--show--progress">
+          <div class="user--points--show--progress--first-bar" [style.width]="firstWidth + '%'"></div>
+        </div>
+        <button class="user--points--show--collect" *ngIf="firstWidth === 100">Coletar</button>
+      </div>
+
+      <div class="user--points--show">
+        <h2 *ngIf="secondWidth !== 100">Para 4% de desconto, é necessário 40 pontos</h2>
+        <h2 *ngIf="secondWidth === 100">Parabéns! Você pode resgatar 4% de desconto!</h2>
+        <div class="user--points--show--progress">
+          <div class="user--points--show--progress--second-bar" [style.width]="secondWidth + '%'"></div>
+        </div>
+        <button class="user--points--show--collect" *ngIf="secondWidth === 100">Coletar</button>
+      </div>
+
+      <div class="user--points--show">
+        <h2 *ngIf="thirdWidth !== 100">Para 6% de desconto, é necessário 60 pontos</h2>
+        <h2 *ngIf="thirdWidth === 100">Parabéns! Você pode resgatar 6% de desconto!</h2>
+        <div class="user--points--show--progress">
+          <div class="user--points--show--progress--second-bar" [style.width]="thirdWidth + '%'"></div>
+        </div>
+        <button class="user--points--show--collect" *ngIf="thirdWidth === 100">Coletar</button>
+      </div>
+    </div>
+  </div>
+</ion-content>

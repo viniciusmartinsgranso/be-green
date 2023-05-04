@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { MaterialsEnum } from '../models/enums/materials.enum';
 import { RecycleProxy } from '../models/proxies/recycle.proxy';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecycleService {
 
@@ -19,6 +20,17 @@ export class RecycleService {
 
     storageRecycles[storageRecycles.length - 1] === undefined ? recycle.id = 0 : recycle.id = storageRecycles[storageRecycles.length - 1].id + 1;
 
+    if (recycle.weight) {
+      switch (recycle.material) {
+        case MaterialsEnum.CARDBOARD:
+          recycle.user.points = recycle.user.points + (recycle.weight * 1000);
+          break;
+
+        case MaterialsEnum.GLASS:
+          recycle.user.points = recycle.user.points + (recycle.weight * 2000);
+          break;
+      }
+    }
     storageRecycles.push(recycle);
     localStorage.setItem('recycles', JSON.stringify(storageRecycles));
   }

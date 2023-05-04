@@ -32,10 +32,15 @@ const routes: Routes = [
     loadChildren: () => import('./main/verify-user/verify-user.module').then( m => m.VerifyUserPageModule)
   },
   {
+    path: 'user',
+    loadChildren: () => import('./main/user/user.module').then( m => m.UserPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'login',
     pathMatch: 'full',
   },
+
 ];
 
 @NgModule({

@@ -20,7 +20,7 @@ export class LoginPage implements OnInit {
     private readonly userService: UserService,
     private readonly router: Router,
     private readonly helper: HelperService,
-  ) { }
+  ) {}
 
   public isLogin: boolean = false;
 
@@ -46,7 +46,13 @@ export class LoginPage implements OnInit {
 
   public selectedRole: number = 0;
 
-  ngOnInit() {
+  public isAdmin: boolean = false;
+
+  public async ngOnInit(): Promise<void> {
+    const resp = this.userService.get();
+
+    if (resp)
+      await this.router.navigateByUrl('/home');
   }
 
   public canLogin(): boolean {
@@ -69,7 +75,7 @@ export class LoginPage implements OnInit {
           break;
 
         case ('user'):
-          await this.router.navigateByUrl('/learn');
+          await this.router.navigateByUrl('/home');
           break;
 
         case ('admin'):

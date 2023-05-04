@@ -34,6 +34,8 @@ export class VerifyUserPage implements OnInit {
     phone: undefined,
     cpf: '',
     cnpj: '',
+    points: 0,
+    imageUrl: ''
   };
 
   public userVerified: UserProxy = {
@@ -47,6 +49,8 @@ export class VerifyUserPage implements OnInit {
     phone: undefined,
     cpf: '',
     cnpj: '',
+    points: 0,
+    imageUrl: ''
   };
 
   public usersList: UserProxy[] = [];

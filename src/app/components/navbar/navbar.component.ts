@@ -103,6 +103,12 @@ export class NavbarComponent {
       icon: 'assets/images/home.svg',
       iconActivated: 'assets/images/selected-home.svg',
     },
+    {
+      type: NavbarEnum.USER,
+      link: '/user',
+      icon: 'assets/images/user.svg',
+      iconActivated: 'assets/images/selected-user.svg',
+    },
   ];
 
   public companyList: NavbarItemInterface[] = [
