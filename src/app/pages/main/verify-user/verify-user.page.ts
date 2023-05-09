@@ -35,7 +35,7 @@ export class VerifyUserPage implements OnInit {
     cpf: '',
     cnpj: '',
     points: 0,
-    imageUrl: ''
+    imageUrl: '',
   };
 
   public userVerified: UserProxy = {
@@ -50,7 +50,7 @@ export class VerifyUserPage implements OnInit {
     cpf: '',
     cnpj: '',
     points: 0,
-    imageUrl: ''
+    imageUrl: '',
   };
 
   public usersList: UserProxy[] = [];
@@ -61,7 +61,7 @@ export class VerifyUserPage implements OnInit {
     id: 0,
     updatedAt: new Date(),
     createdAt: new Date(),
-    weight: null,
+    weight: 0,
     user: this.postUser,
   };
 
@@ -79,7 +79,6 @@ export class VerifyUserPage implements OnInit {
       return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
     }
 
-
     if (this.user.role === 'user') {
       await this.router.navigateByUrl('/learn');
       return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
@@ -90,7 +89,6 @@ export class VerifyUserPage implements OnInit {
     const haveCpf = !!this.userVerified.cpf;
     const havePhone = !!this.userVerified.phone;
     return this.userVerified.name.length >= 4 && haveCpf && havePhone;
-
   }
 
   public async verifyUsers(): Promise<boolean> {

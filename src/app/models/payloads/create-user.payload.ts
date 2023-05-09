@@ -15,4 +15,5 @@ export interface RegisterPayload extends CreateUserPayload {
   cpf?: string;
   phone?: string;
   cep?: number;
+  points?: number;
 }

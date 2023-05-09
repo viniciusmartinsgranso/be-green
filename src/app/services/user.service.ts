@@ -52,6 +52,8 @@ export class UserService {
     localStorage.removeItem('loggedUser');
     storageUsers[storageUsers.length - 1] === undefined ? user.id = 0 : user.id = storageUsers[storageUsers.length - 1].id + 1;
 
+    user.points = 0;
+
     storageUsers.push(user);
     localStorage.setItem('users', JSON.stringify(storageUsers));
     localStorage.setItem('loggedUser', JSON.stringify(user));
@@ -93,6 +95,36 @@ export class UserService {
     storage.push(...newList);
     localStorage.setItem('users', JSON.stringify(newList));
     localStorage.removeItem('loggedUser');
+  }
+
+  public updateUserPoints(user: UserProxy, points: number): void {
+    const table = localStorage.getItem('users');
+    const storageUsers = table ? JSON.parse(table) : [];
+
+    const newUser = storageUsers.filter((us: UserProxy) => {
+      if (us.id === user.id) {
+        us.points = us.points + points;
+        console.log(us.points);
+        return us;
+      } else {
+        return;
+      }
+    });
+
+    const newList = storageUsers.filter((userStorage: UserProxy) => {
+      if (userStorage.id !== user.id) {
+        return userStorage;
+      } else return;
+    });
+
+    if (newUser === undefined)
+      return;
+
+    // localStorage.removeItem(newUser);
+    // storageUsers.push(...newList);
+    // localStorage.setItem('users', JSON.stringify(newList));
+    storageUsers.push(newUser);
+    localStorage.setItem('users', JSON.stringify(storageUsers));
   }
 
   // public async deleteUser(options: AlertOptionsInterface, user: UpdateUserPayload): Promise<void> {

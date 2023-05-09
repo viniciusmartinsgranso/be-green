@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { MaterialsEnum } from '../models/enums/materials.enum';
 import { RecycleProxy } from '../models/proxies/recycle.proxy';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecycleService {
 
-  constructor() { }
+  constructor(
+    private readonly userService: UserService,
+  ) { }
 
   public get(): RecycleProxy[] {
     const recycle = localStorage.getItem('recycles');
@@ -20,32 +23,27 @@ export class RecycleService {
 
     storageRecycles[storageRecycles.length - 1] === undefined ? recycle.id = 0 : recycle.id = storageRecycles[storageRecycles.length - 1].id + 1;
 
+    const mat = Number(recycle.material)
+
     if (recycle.weight) {
-      switch (recycle.material) {
+      switch (mat) {
         case MaterialsEnum.CARDBOARD:
           recycle.user.points = recycle.user.points + (recycle.weight * 1000);
+          console.log(recycle.user.points);
+          this.userService.updateUserPoints(recycle.user, recycle.user.points);
           break;
 
         case MaterialsEnum.GLASS:
           recycle.user.points = recycle.user.points + (recycle.weight * 2000);
+          console.log(recycle.user.points);
+          this.userService.updateUserPoints(recycle.user, recycle.user.points);
           break;
       }
+
     }
+
     storageRecycles.push(recycle);
     localStorage.setItem('recycles', JSON.stringify(storageRecycles));
   }
 
-  public delete(recycle: number): void {
-    const table = localStorage.getItem('recycles');
-    const storage: RecycleProxy[] = table ? JSON.parse(table) : [];
-
-    const newList = storage.filter((recycleStorage) => {
-      if (recycleStorage.id !== recycle) {
-        return recycleStorage;
-      } else return false;
-    });
-
-    storage.push(...newList);
-    localStorage.setItem('recycles', JSON.stringify(newList));
-  }
 }

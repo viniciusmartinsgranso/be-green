@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { ExitAppComponent } from '../../../components/modals/exit-app/exit-app.component';
 import { FunctionalitiesEnum } from '../../../models/enums/functionalities.enum';
 import { PostProxy } from '../../../models/proxies/post.proxy';
 import { UserProxy } from '../../../models/proxies/user.proxy';
@@ -21,6 +23,7 @@ export class HomePage {
     private readonly helper: HelperService,
     private readonly postService: PostService,
     private readonly sanitizer: DomSanitizer,
+    private readonly modalController: ModalController,
   ) {
     this.user = this.userService.get();
   }
@@ -35,11 +38,16 @@ export class HomePage {
 
   public types: typeof FunctionalitiesEnum = FunctionalitiesEnum;
 
+  public isAdmin: boolean = false;
+
   public async ionViewDidEnter(): Promise<void> {
     if (!this.user) {
       await this.router.navigateByUrl('/login');
       return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
     }
+
+    if (this.user.role === 'admin')
+      this.isAdmin = true;
 
     this.getPosts();
     this.filterPosts();
@@ -50,7 +58,6 @@ export class HomePage {
   }
 
   public filterPosts(): void {
-    console.log(this.postList);
     this.postList.forEach(item => {
       item.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(item.videoUrl);
 
@@ -59,12 +66,19 @@ export class HomePage {
       else
         this.sustentabilityList.push(item);
     });
-    console.log(this.ambientList);
-    console.log(this.sustentabilityList);
   }
 
   public redirectToItem(id: number): void {
     console.log(id);
+  }
+
+  public async exitModal(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: ExitAppComponent,
+      cssClass: 'local-backdrop',
+    });
+
+    await modal.present();
   }
 
 }

@@ -5,6 +5,7 @@
     </div>
     <div class="home--hello">
       <p>Oi, <strong>{{ user.name }}</strong></p>
+      <button *ngIf="isAdmin" (click)="exitModal()" class="home--hello--exit">Sair</button>
     </div>
 
     <div class="home--occurrence">

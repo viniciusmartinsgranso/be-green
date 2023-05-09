@@ -44,10 +44,6 @@ export class LoginPage implements OnInit {
     updatedAt: new Date(),
   };
 
-  public selectedRole: number = 0;
-
-  public isAdmin: boolean = false;
-
   public async ngOnInit(): Promise<void> {
     const resp = this.userService.get();
 

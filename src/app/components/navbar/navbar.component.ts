@@ -36,6 +36,9 @@ export class NavbarComponent {
 
         if (routerEvent.url.includes('/verify-user'))
           this.currentNavbar = NavbarEnum.VERIFY_USER;
+
+        if (routerEvent.url.includes('/user'))
+          this.currentNavbar = NavbarEnum.USER;
       });
 
     this.user = this.userService.get();

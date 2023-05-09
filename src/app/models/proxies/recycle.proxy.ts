@@ -4,7 +4,7 @@ import { UserProxy } from './user.proxy';
 
 export interface RecycleProxy extends BaseCrudProxy {
   material: MaterialsEnum;
-  weight: number | null;
+  weight: number;
   imageUrl: string[];
   user: UserProxy;
 }
