@@ -14,35 +14,41 @@
       </button>
     </div>
 
-    <div class="user--points">
+    <div class="user--points" *ngIf="isUser">
       <h3>Você atualmente tem {{ user.points }} pontos.</h3>
 
       <div class="user--points--show">
-        <h2 *ngIf="firstWidth !== 100">Para 2% de desconto, é necessário 20 pontos</h2>
-        <h2 *ngIf="firstWidth === 100">Parabéns! Você pode resgatar 2% de desconto!</h2>
+        <h2 *ngIf="firstWidth !== 100">Para 3% de desconto, são necessários 300 pontos</h2>
+        <h2 *ngIf="firstWidth === 100">Parabéns! Você pode resgatar 3% de desconto!</h2>
         <div class="user--points--show--progress">
           <div class="user--points--show--progress--first-bar" [style.width]="firstWidth + '%'"></div>
         </div>
-        <button class="user--points--show--collect" *ngIf="firstWidth === 100">Coletar</button>
+        <button class="user--points--show--collect" *ngIf="firstWidth >= 100">Coletar</button>
       </div>
 
       <div class="user--points--show">
-        <h2 *ngIf="secondWidth !== 100">Para 4% de desconto, é necessário 40 pontos</h2>
-        <h2 *ngIf="secondWidth === 100">Parabéns! Você pode resgatar 4% de desconto!</h2>
+        <h2 *ngIf="secondWidth !== 100">Para 5% de desconto, são necessários 500 pontos</h2>
+        <h2 *ngIf="secondWidth === 100">Parabéns! Você pode resgatar 5% de desconto!</h2>
         <div class="user--points--show--progress">
           <div class="user--points--show--progress--second-bar" [style.width]="secondWidth + '%'"></div>
         </div>
-        <button class="user--points--show--collect" *ngIf="secondWidth === 100">Coletar</button>
+        <button class="user--points--show--collect" *ngIf="secondWidth >= 100">Coletar</button>
       </div>
 
       <div class="user--points--show">
-        <h2 *ngIf="thirdWidth !== 100">Para 6% de desconto, é necessário 60 pontos</h2>
-        <h2 *ngIf="thirdWidth === 100">Parabéns! Você pode resgatar 6% de desconto!</h2>
+        <h2 *ngIf="thirdWidth !== 100">Para 10% de desconto, são necessários 1000 pontos</h2>
+        <h2 *ngIf="thirdWidth === 100">Parabéns! Você pode resgatar 10% de desconto!</h2>
         <div class="user--points--show--progress">
           <div class="user--points--show--progress--second-bar" [style.width]="thirdWidth + '%'"></div>
         </div>
-        <button class="user--points--show--collect" *ngIf="thirdWidth === 100">Coletar</button>
+        <button class="user--points--show--collect" *ngIf="thirdWidth >= 100">Coletar</button>
       </div>
+    </div>
+
+    <div class="user--content">
+      <h3>
+        Bem vindo, {{ user.name }}
+      </h3>
     </div>
   </div>
 </ion-content>

@@ -24,11 +24,12 @@ export class RecycleService {
     storageRecycles[storageRecycles.length - 1] === undefined ? recycle.id = 0 : recycle.id = storageRecycles[storageRecycles.length - 1].id + 1;
 
     const mat = Number(recycle.material)
+    console.log(recycle);
 
     if (recycle.weight) {
       switch (mat) {
         case MaterialsEnum.CARDBOARD:
-          recycle.user.points = recycle.user.points + (recycle.weight * 1000);
+          recycle.user.points = recycle.user.points + recycle.weight;
           console.log(recycle.user.points);
           this.userService.updateUserPoints(recycle.user, recycle.user.points);
           break;

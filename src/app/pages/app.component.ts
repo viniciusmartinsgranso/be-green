@@ -47,14 +47,62 @@ export class AppComponent implements OnInit {
         address: '',
       };
 
-      const table = localStorage.getItem('users');
-      const storageUsers: RegisterPayload[] = table ? JSON.parse(table) : [];
+      const tableAdmin = localStorage.getItem('users');
+      const storageAdmin: RegisterPayload[] = tableAdmin ? JSON.parse(tableAdmin) : [];
 
       localStorage.removeItem('loggedUser');
-      storageUsers[storageUsers.length - 1] === undefined ? admin.id = 0 : admin.id = storageUsers[storageUsers.length - 1].id + 1;
+      storageAdmin[storageAdmin.length - 1] === undefined ? admin.id = 0 : admin.id = storageAdmin[storageAdmin.length - 1].id + 1;
 
-      storageUsers.push(admin);
-      localStorage.setItem('users', JSON.stringify(storageUsers));
+      storageAdmin.push(admin);
+      localStorage.setItem('users', JSON.stringify(storageAdmin));
+
+      const user = {
+        id: 1,
+        email: 'vini@email.com',
+        role: 'user',
+        confirmEmail: 'vini@email.com',
+        name: 'vini',
+        cpf: '123.123.123-12',
+        phone: '(12) 31231-2312',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        password: '123456',
+        confirmPassword: '123456',
+        address: '',
+        points: 0,
+      };
+
+      const tableUser = localStorage.getItem('users');
+      const storageUser: RegisterPayload[] = tableUser ? JSON.parse(tableUser) : [];
+
+      localStorage.removeItem('loggedUser');
+      storageUser[storageUser.length - 1] === undefined ? user.id = 0 : user.id = storageUser[storageUser.length - 1].id + 1;
+
+      storageUser.push(user);
+      localStorage.setItem('users', JSON.stringify(storageUser));
+
+      const company = {
+        id: 1,
+        email: 'company@email.com',
+        role: 'company',
+        confirmEmail: 'company@email.com',
+        name: 'company',
+        cnpj: '123.123.123/1231-12',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        password: '123456',
+        confirmPassword: '123456',
+        address: '',
+      };
+
+      const tableCompany = localStorage.getItem('users');
+      const storageCompany: RegisterPayload[] = tableCompany ? JSON.parse(tableCompany) : [];
+
+      localStorage.removeItem('loggedUser');
+      storageCompany[storageCompany.length - 1] === undefined ? company.id = 0 : company.id = storageCompany[storageCompany.length - 1].id + 1;
+
+      storageCompany.push(company);
+      localStorage.setItem('users', JSON.stringify(storageCompany));
     }
   }
 

@@ -90,7 +90,13 @@ export class NavbarComponent {
       link: '/verify-user',
       icon: 'assets/images/company.svg',
       iconActivated: 'assets/images/selected-company.svg',
-    }
+    },
+    {
+      type: NavbarEnum.USER,
+      link: '/user',
+      icon: 'assets/images/user.svg',
+      iconActivated: 'assets/images/selected-user.svg',
+    },
   ];
 
   public userList: NavbarItemInterface[] = [
@@ -126,6 +132,12 @@ export class NavbarComponent {
       link: '/home',
       icon: 'assets/images/home.svg',
       iconActivated: 'assets/images/selected-home.svg',
+    },
+    {
+      type: NavbarEnum.USER,
+      link: '/user',
+      icon: 'assets/images/user.svg',
+      iconActivated: 'assets/images/selected-user.svg',
     },
   ]
 

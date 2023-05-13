@@ -18,33 +18,49 @@ export class UserPage implements OnInit {
     private readonly modalController: ModalController,
     private readonly router: Router,
     private readonly helper: HelperService,
-  ) {
-    this.user = this.userService.get();
-  }
+  ) {}
 
-  public user!: UserProxy;
+  public user: UserProxy = {
+    id: 0,
+    name: '',
+    role: '',
+    email: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    password: '',
+    phone: undefined,
+    cpf: '',
+    cnpj: '',
+    points: 0,
+    imageUrl: '',
+  };
 
   public totalPercentage: number = 100;
 
-  public firstMeta: number = 20;
+  public firstMeta: number = 300;
 
   public firstWidth: number = 0;
 
-  public secondMeta: number = 40;
+  public secondMeta: number = 500;
 
   public secondWidth: number = 0;
 
-  public thirdMeta: number = 60;
+  public thirdMeta: number = 1000;
 
   public thirdWidth: number = 0;
 
+  public get isUser(): boolean {
+    return this.user.role === 'user';
+  }
+
   public async ngOnInit(): Promise<void> {
+    this.user = this.userService.get();
+
     if (!this.user) {
       await this.router.navigateByUrl('/login');
       return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
     }
 
-    const totalPercentage = 100;
     this.firstWidth = (this.totalPercentage * this.user.points)/this.firstMeta;
 
     this.secondWidth = (this.totalPercentage * this.user.points)/this.secondMeta;

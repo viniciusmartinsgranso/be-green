@@ -101,7 +101,7 @@ export class UserService {
     const table = localStorage.getItem('users');
     const storageUsers = table ? JSON.parse(table) : [];
 
-    const newUser = storageUsers.filter((us: UserProxy) => {
+    const newUser = storageUsers.find((us: UserProxy) => {
       if (us.id === user.id) {
         us.points = us.points + points;
         console.log(us.points);
@@ -114,17 +114,18 @@ export class UserService {
     const newList = storageUsers.filter((userStorage: UserProxy) => {
       if (userStorage.id !== user.id) {
         return userStorage;
-      } else return;
+      } else return false;
     });
 
-    if (newUser === undefined)
-      return;
+    if (!newUser)
+      return void this.helper.showToast('Ocorreu um erro, tente novamente mais tarde.');
 
-    // localStorage.removeItem(newUser);
-    // storageUsers.push(...newList);
-    // localStorage.setItem('users', JSON.stringify(newList));
-    storageUsers.push(newUser);
-    localStorage.setItem('users', JSON.stringify(storageUsers));
+    const pushList: any[] = [];
+    pushList.push(newUser);
+    console.log(newList);
+    pushList.push(...newList)
+    localStorage.removeItem('users');
+    localStorage.setItem('users', JSON.stringify(pushList));
   }
 
   // public async deleteUser(options: AlertOptionsInterface, user: UpdateUserPayload): Promise<void> {

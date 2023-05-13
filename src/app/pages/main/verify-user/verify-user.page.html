@@ -42,15 +42,20 @@
           <option [value]="materialsEnum.PLASTIC">{{ translatedList[materialsEnum.PLASTIC] }}</option>
           <option [value]="materialsEnum.PAPER">{{ translatedList[materialsEnum.PAPER] }}</option>
           <option [value]="materialsEnum.CARDBOARD">{{ translatedList[materialsEnum.CARDBOARD] }}</option>
-          <option [value]="materialsEnum.METAL">{{ translatedList[materialsEnum.METAL] }}</option>
-          <option [value]="materialsEnum.WOOD">{{ translatedList[materialsEnum.WOOD] }}</option>
           <option [value]="materialsEnum.ORGANICS">{{ translatedList[materialsEnum.ORGANICS] }}</option>
+          <option [value]="materialsEnum.ALUMINIUM">{{ translatedList[materialsEnum.ALUMINIUM] }}</option>
+          <option [value]="materialsEnum.COPPER">{{ translatedList[materialsEnum.COPPER] }}</option>
+          <option [value]="materialsEnum.IRON">{{ translatedList[materialsEnum.IRON] }}</option>
+          <option [value]="materialsEnum.STEEL">{{ translatedList[materialsEnum.STEEL] }}</option>
+          <option [value]="materialsEnum.OIL">{{ translatedList[materialsEnum.OIL] }}</option>
+          <option [value]="materialsEnum.OTHER_METALS">{{ translatedList[materialsEnum.OTHER_METALS] }}</option>
         </select>
       </div>
 
       <div class="verify--verified-fields--div">
         <label>Peso:</label>
         <input class="verify--verified-fields--div--input"
+               type="number"
                [(ngModel)]="recycle.weight">
       </div>
 
