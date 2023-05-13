@@ -5,7 +5,7 @@
     </div>
     <div class="home--hello">
       <p>Oi, <strong>{{ user.name }}</strong></p>
-      <button *ngIf="isAdmin" (click)="exitModal()" class="home--hello--exit">Sair</button>
+      <button *ngIf="isAdmin && isCompany" (click)="exitModal()" class="home--hello--exit">Sair</button>
     </div>
 
     <div class="home--occurrence">
@@ -24,8 +24,9 @@
     <div class="home--occurrence">
       <h3>Meio Ambiente</h3>
       <div class="home--occurrence--type" *ngIf="ambientList.length > 0; else emptyList">
-        <div *ngFor="let item of ambientList">
-          <iframe class="home--occurrence--type--item" width="260" height="160" [src]="item.urlSafe" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <div class="home--occurrence--type--item" *ngFor="let item of ambientList" (click)="redirectToItem(item.id)">
+          <p>{{ item.title }}</p>
+          <iframe class="home--occurrence--type--item--iframe" width="230" height="120" [src]="item.urlSafe" allow="accelerometer; autoplay; encrypted-midia; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
       </div>
     </div>

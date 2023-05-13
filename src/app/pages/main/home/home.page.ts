@@ -40,6 +40,8 @@ export class HomePage {
 
   public isAdmin: boolean = false;
 
+  public isCompany: boolean = false;
+
   public async ionViewDidEnter(): Promise<void> {
     if (!this.user) {
       await this.router.navigateByUrl('/login');
@@ -48,6 +50,12 @@ export class HomePage {
 
     if (this.user.role === 'admin')
       this.isAdmin = true;
+
+    if (this.user.role === 'company')
+      this.isCompany = true;
+
+
+    this.postList = [];
 
     this.getPosts();
     this.filterPosts();
@@ -61,7 +69,7 @@ export class HomePage {
     this.postList.forEach(item => {
       item.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(item.videoUrl);
 
-      if (item.type === FunctionalitiesEnum.AMBIENT)
+      if (Number(item.type) === FunctionalitiesEnum.AMBIENT)
         this.ambientList.push(item);
       else
         this.sustentabilityList.push(item);
