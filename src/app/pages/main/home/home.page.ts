@@ -59,6 +59,11 @@ export class HomePage {
 
     this.getPosts();
     this.filterPosts();
+
+    const tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.body.appendChild(tag);
   }
 
   public getPosts(): void {
@@ -67,7 +72,7 @@ export class HomePage {
 
   public filterPosts(): void {
     this.postList.forEach(item => {
-      item.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(item.videoUrl);
+      // item.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(item.videoUrl);
 
       if (Number(item.type) === FunctionalitiesEnum.AMBIENT)
         this.ambientList.push(item);

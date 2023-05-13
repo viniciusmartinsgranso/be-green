@@ -13,7 +13,7 @@
       <div class="home--occurrence--type" *ngIf="sustentabilityList.length > 0; else emptyList">
         <div class="home--occurrence--type--item" *ngFor="let item of sustentabilityList" (click)="redirectToItem(item.id)">
           <p>{{ item.title }}</p>
-          <iframe class="home--occurrence--type--item--iframe" width="230" height="120" [src]="item.urlSafe" allow="accelerometer; autoplay; encrypted-midia; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <youtube-player [videoId]="item.videoUrl" [width]="230" [height]="120"></youtube-player>
         </div>
       </div>
       <ng-template #emptyList>
@@ -26,7 +26,7 @@
       <div class="home--occurrence--type" *ngIf="ambientList.length > 0; else emptyList">
         <div class="home--occurrence--type--item" *ngFor="let item of ambientList" (click)="redirectToItem(item.id)">
           <p>{{ item.title }}</p>
-          <iframe class="home--occurrence--type--item--iframe" width="230" height="120" [src]="item.urlSafe" allow="accelerometer; autoplay; encrypted-midia; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <youtube-player [videoId]="item.videoUrl" [width]="230" [height]="120"></youtube-player>
         </div>
       </div>
     </div>

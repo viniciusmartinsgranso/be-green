@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,7 +14,8 @@ import { HomePage } from './home.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    YouTubePlayerModule,
   ],
   declarations: [HomePage]
 })
