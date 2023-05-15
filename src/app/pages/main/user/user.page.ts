@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { CollectUserPointComponent } from '../../../components/modals/collect-user-point/collect-user-point.component';
 import { ExitAppComponent } from '../../../components/modals/exit-app/exit-app.component';
 import { UserProxy } from '../../../models/proxies/user.proxy';
 import { HelperService } from '../../../services/helper.service';
@@ -71,6 +72,15 @@ export class UserPage implements OnInit {
   public async openExitModal(): Promise<void> {
     const modal = await this.modalController.create({
       component: ExitAppComponent,
+      cssClass: 'local-backdrop',
+    });
+
+    await modal.present();
+  }
+
+  public async collectModal(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: CollectUserPointComponent,
       cssClass: 'local-backdrop',
     });
 

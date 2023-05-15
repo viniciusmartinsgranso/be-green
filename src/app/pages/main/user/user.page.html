@@ -23,7 +23,7 @@
         <div class="user--points--show--progress">
           <div class="user--points--show--progress--first-bar" [style.width]="firstWidth + '%'"></div>
         </div>
-        <button class="user--points--show--collect" *ngIf="firstWidth >= 100">Coletar</button>
+        <button class="user--points--show--collect" *ngIf="firstWidth >= 100" (click)="collectModal()">Coletar</button>
       </div>
 
       <div class="user--points--show">
@@ -32,7 +32,7 @@
         <div class="user--points--show--progress">
           <div class="user--points--show--progress--second-bar" [style.width]="secondWidth + '%'"></div>
         </div>
-        <button class="user--points--show--collect" *ngIf="secondWidth >= 100">Coletar</button>
+        <button class="user--points--show--collect" *ngIf="secondWidth >= 100" (click)="collectModal()">Coletar</button>
       </div>
 
       <div class="user--points--show">
@@ -41,7 +41,7 @@
         <div class="user--points--show--progress">
           <div class="user--points--show--progress--second-bar" [style.width]="thirdWidth + '%'"></div>
         </div>
-        <button class="user--points--show--collect" *ngIf="thirdWidth >= 100">Coletar</button>
+        <button class="user--points--show--collect" *ngIf="thirdWidth >= 100" (click)="collectModal()">Coletar</button>
       </div>
     </div>
 
