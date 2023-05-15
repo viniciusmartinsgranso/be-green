@@ -24,19 +24,61 @@ export class RecycleService {
     storageRecycles[storageRecycles.length - 1] === undefined ? recycle.id = 0 : recycle.id = storageRecycles[storageRecycles.length - 1].id + 1;
 
     const mat = Number(recycle.material)
-    console.log(recycle);
 
     if (recycle.weight) {
       switch (mat) {
-        case MaterialsEnum.CARDBOARD:
+        case MaterialsEnum.ALUMINIUM:
+          recycle.user.points = recycle.user.points + (recycle.weight * 3);
+          this.userService.updateUserPoints(recycle.user, recycle.user.points);
+          break;
+
+        case MaterialsEnum.COPPER:
+          recycle.user.points = recycle.user.points + (recycle.weight * 2);
+          this.userService.updateUserPoints(recycle.user, recycle.user.points);
+          break;
+
+        case MaterialsEnum.IRON:
+          recycle.user.points = recycle.user.points + (recycle.weight * 2);
+          this.userService.updateUserPoints(recycle.user, recycle.user.points);
+          break;
+
+        case MaterialsEnum.STEEL:
+          recycle.user.points = recycle.user.points + (recycle.weight * 2);
+          this.userService.updateUserPoints(recycle.user, recycle.user.points);
+          break;
+
+        case MaterialsEnum.OTHER_METALS:
           recycle.user.points = recycle.user.points + recycle.weight;
-          console.log(recycle.user.points);
+          this.userService.updateUserPoints(recycle.user, recycle.user.points);
+          break;
+
+        case MaterialsEnum.OIL:
+          recycle.user.points = recycle.user.points + (recycle.weight * 3);
+          this.userService.updateUserPoints(recycle.user, recycle.user.points);
+          break;
+
+        case MaterialsEnum.ORGANICS:
+          recycle.user.points = recycle.user.points + recycle.weight;
+          this.userService.updateUserPoints(recycle.user, recycle.user.points);
+          break;
+
+        case MaterialsEnum.PLASTIC:
+          recycle.user.points = recycle.user.points + (recycle.weight * 2);
+          this.userService.updateUserPoints(recycle.user, recycle.user.points);
+          break;
+
+        case MaterialsEnum.PAPER:
+          recycle.user.points = recycle.user.points + (recycle.weight * 2);
+          this.userService.updateUserPoints(recycle.user, recycle.user.points);
+          break;
+
+        case MaterialsEnum.CARDBOARD:
+          recycle.user.points = recycle.user.points + recycle.weight ;
           this.userService.updateUserPoints(recycle.user, recycle.user.points);
           break;
 
         case MaterialsEnum.GLASS:
-          recycle.user.points = recycle.user.points + (recycle.weight * 2000);
-          console.log(recycle.user.points);
+          recycle.user.points = recycle.user.points + (recycle.weight * 2);
           this.userService.updateUserPoints(recycle.user, recycle.user.points);
           break;
       }

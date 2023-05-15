@@ -69,7 +69,6 @@ export class CreatePostPage implements OnInit {
   }
 
   public async onSubmit(): Promise<void> {
-    console.log(this.post);
     this.postService.create(this.post);
     await this.helper.showToast('Postagem criada com sucesso!');
   }

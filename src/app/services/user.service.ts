@@ -104,7 +104,6 @@ export class UserService {
     const newUser = storageUsers.find((us: UserProxy) => {
       if (us.id === user.id) {
         us.points = us.points + points;
-        console.log(us.points);
         return us;
       } else {
         return;
@@ -122,7 +121,6 @@ export class UserService {
 
     const pushList: any[] = [];
     pushList.push(newUser);
-    console.log(newList);
     pushList.push(...newList)
     localStorage.removeItem('users');
     localStorage.setItem('users', JSON.stringify(pushList));
