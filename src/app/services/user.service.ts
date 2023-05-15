@@ -103,9 +103,10 @@ export class UserService {
 
     const newUser = storageUsers.find((us: UserProxy) => {
       if (us.id === user.id) {
-        us.points = us.points + points;
+        us.points = user.points;
         return us;
-      } else {
+      }
+      else {
         return;
       }
     });

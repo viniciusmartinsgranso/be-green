@@ -23,7 +23,7 @@ export class RecycleService {
 
     storageRecycles[storageRecycles.length - 1] === undefined ? recycle.id = 0 : recycle.id = storageRecycles[storageRecycles.length - 1].id + 1;
 
-    const mat = Number(recycle.material)
+    const mat: number = Number(recycle.material);
 
     if (recycle.weight) {
       switch (mat) {
