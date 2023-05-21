@@ -20,11 +20,27 @@ export class LoginPage implements OnInit {
     private readonly userService: UserService,
     private readonly router: Router,
     private readonly helper: HelperService,
-  ) {}
+  ) {
+    this.userService.getCurrentUser().subscribe(user => {
+      return this.user = user;
+    })
+  }
 
   public isLogin: boolean = false;
 
   public isRegister: boolean = false;
+
+  public user: UserProxy = {
+    id: 0,
+    email: '',
+    role: '',
+    points: 0,
+    name: '',
+    password: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    imageUrl: '',
+  };
 
   public loginPayload: LoginPayload = {
     email: '',
@@ -45,9 +61,7 @@ export class LoginPage implements OnInit {
   };
 
   public async ngOnInit(): Promise<void> {
-    const resp = this.userService.get();
-
-    if (resp)
+    if (this.user.role !== '')
       await this.router.navigateByUrl('/home');
   }
 
@@ -60,12 +74,8 @@ export class LoginPage implements OnInit {
 
     const canLogin = await this.userService.login(this.loginPayload);
 
-    const table = localStorage.getItem('loggedUser');
-
-    const user: UserProxy = table ? JSON.parse(table) : {};
-
     if (canLogin) {
-      switch (user.role) {
+      switch (this.user.role) {
         case ('company'):
           await this.router.navigateByUrl('/home');
           break;
@@ -104,15 +114,13 @@ export class LoginPage implements OnInit {
     if (!this.userService.create(this.registerPayload))
       return void await this.helper.showToast('Usuário ou senha incorretos, tente novamente.');
 
-    const user = this.userService.get();
-
-    if (user.role === 'user') {
+    if (this.user.role === 'user') {
       await this.router.navigateByUrl('/collect-points');
       await this.helper.showToast('Bem vindo(a) ao Be Green!');
       return;
     }
 
-    if (user.role === 'company') {
+    if (this.user.role === 'company') {
       await this.router.navigateByUrl('/verify-user');
       await this.helper.showToast('Bem vindo(a) ao Be Green!');
       return;

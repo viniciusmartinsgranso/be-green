@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div class="user--content">
+    <div class="user--content" *ngIf="!isUser">
       <h3>
         Bem vindo, {{ user.name }}
       </h3>

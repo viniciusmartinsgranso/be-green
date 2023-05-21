@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 import { CreateUserPayload, RegisterPayload } from '../models/payloads/create-user.payload';
 import { LoginPayload } from '../models/payloads/login.payload';
 import { UpdateUserPayload } from '../models/payloads/update-user.payload';
@@ -30,9 +31,19 @@ export class UserService {
     },
   ];
 
+  public user$: Subject<UserProxy> = new Subject<UserProxy>();
+
   public get(): UserProxy {
     const user = localStorage.getItem('loggedUser');
     return user ? JSON.parse(user) : false;
+  }
+
+  public setUser(user: any) {
+    return this.user$.next(user);
+  }
+
+  public getCurrentUser(): Observable<UserProxy> {
+    return this.user$.asObservable();
   }
 
   public getUsers(): UserProxy[] {
@@ -55,6 +66,7 @@ export class UserService {
     user.points = 0;
 
     storageUsers.push(user);
+    this.setUser(user);
     localStorage.setItem('users', JSON.stringify(storageUsers));
     localStorage.setItem('loggedUser', JSON.stringify(user));
     return true;
@@ -170,6 +182,7 @@ export class UserService {
     if (!loggedUser) return false;
 
     localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
+    this.setUser(loggedUser);
     return true;
   }
 

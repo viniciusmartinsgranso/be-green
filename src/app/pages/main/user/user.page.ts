@@ -29,9 +29,6 @@ export class UserPage implements OnInit {
     createdAt: new Date(),
     updatedAt: new Date(),
     password: '',
-    phone: undefined,
-    cpf: '',
-    cnpj: '',
     points: 0,
     imageUrl: '',
   };
@@ -56,6 +53,10 @@ export class UserPage implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     this.user = this.userService.get();
+
+    this.userService.getCurrentUser().subscribe(user => {
+      this.user = user;
+    });
 
     if (!this.user) {
       await this.router.navigateByUrl('/login');

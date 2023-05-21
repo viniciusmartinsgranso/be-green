@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
@@ -15,7 +15,7 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   constructor(
     private readonly userService: UserService,
@@ -28,7 +28,17 @@ export class HomePage {
     this.user = this.userService.get();
   }
 
-  public user!: UserProxy;
+  public user: UserProxy = {
+    id: 0,
+    name: '',
+    role: '',
+    email: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    password: '',
+    points: 0,
+    imageUrl: '',
+  };
 
   public postList: PostProxy[] = [];
 
@@ -41,6 +51,12 @@ export class HomePage {
   public isAdmin: boolean = false;
 
   public isCompany: boolean = false;
+
+  public ngOnInit(): void {
+    this.userService.getCurrentUser().subscribe(user => {
+      this.user = user;
+    });
+  }
 
   public async ionViewDidEnter(): Promise<void> {
     if (!this.user) {
@@ -64,6 +80,12 @@ export class HomePage {
 
     tag.src = "https://www.youtube.com/iframe_api";
     document.body.appendChild(tag);
+  }
+
+  public ionViewDidLeave(): void {
+    this.postList = [];
+    this.sustentabilityList = [];
+    this.ambientList = [];
   }
 
   public getPosts(): void {

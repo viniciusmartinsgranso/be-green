@@ -74,12 +74,6 @@ export class NavbarComponent {
       iconActivated: 'assets/images/selected-collect-points.svg',
     },
     {
-      type: NavbarEnum.ADMIN,
-      link: '/admin',
-      icon: 'assets/images/collect-points.svg',
-      iconActivated: 'assets/images/selected-collect-points.svg',
-    },
-    {
       type: NavbarEnum.CREATE_POST,
       link: '/create-post',
       icon: 'assets/images/post.svg',
