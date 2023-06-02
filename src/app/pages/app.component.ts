@@ -4,7 +4,9 @@ import firebase from 'firebase/compat';
 import { filter, Subscription } from 'rxjs';
 import { RegisterPayload } from '../models/payloads/create-user.payload';
 import { CollectPointProxy } from '../models/proxies/collect-point.proxy';
+import { PostProxy } from '../models/proxies/post.proxy';
 import { CollectService } from '../services/collect.service';
+import { PostService } from '../services/post.service';
 import { UserService } from '../services/user.service';
 import initializeApp = firebase.initializeApp;
 import app = firebase.app;
@@ -20,6 +22,7 @@ export class AppComponent implements OnInit {
     private readonly router: Router,
     private readonly userService: UserService,
     private readonly collectService: CollectService,
+    private readonly postService: PostService,
   ) {
     this.routeSubscription = router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -34,80 +37,36 @@ export class AppComponent implements OnInit {
         }
       });
 
-    const usersList = this.userService.getUsers();
+    this.initializeUsers();
+    this.initializeCollectPoints();
+  }
 
-    if (!usersList) {
-      const admin = {
-        id: 1,
-        email: 'admin@email.com',
-        role: 'admin',
-        confirmEmail: 'admin@email.com',
-        name: 'Admin',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        password: '123456',
-        confirmPassword: '123456',
-        address: '',
-      };
+  public canShowNavbar: boolean = false;
 
-      const tableAdmin = localStorage.getItem('users');
-      const storageAdmin: RegisterPayload[] = tableAdmin ? JSON.parse(tableAdmin) : [];
+  public routesWithoutNavbar: string[] = ['/login'];
 
-      localStorage.removeItem('loggedUser');
-      storageAdmin[storageAdmin.length - 1] === undefined ? admin.id = 0 : admin.id = storageAdmin[storageAdmin.length - 1].id + 1;
+  public routeSubscription: Subscription;
 
-      storageAdmin.push(admin);
-      localStorage.setItem('users', JSON.stringify(storageAdmin));
+  public firebaseConfig = {
+    apiKey: 'AIzaSyBFQV9Zh-llXE_3rLRjWOY2SxhtwYaVZyY',
+    authDomain: 'be-green-6e8dc.firebaseapp.com',
+    projectId: 'be-green-6e8dc',
+    storageBucket: 'be-green-6e8dc.appspot.com',
+    messagingSenderId: '400858493652',
+    appId: '1:400858493652:web:ccbe8bcbad9dbd43be0141',
+    measurementId: 'G-9HJZ971K5V',
+  };
 
-      const user = {
-        id: 1,
-        email: 'vini@email.com',
-        role: 'user',
-        confirmEmail: 'vini@email.com',
-        name: 'vini',
-        cpf: '123.123.123-12',
-        phone: '(12) 31231-2312',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        password: '123456',
-        confirmPassword: '123456',
-        address: '',
-        points: 0,
-      };
+  public ngOnInit(): void {
+    // const app = initializeApp(this.firebaseConfig);
+    // const analytics = getAnalytics(app);
+  }
 
-      const tableUser = localStorage.getItem('users');
-      const storageUser: RegisterPayload[] = tableUser ? JSON.parse(tableUser) : [];
+  public async ngOnDestroy(): Promise<void> {
+    this.routeSubscription.unsubscribe();
+  }
 
-      localStorage.removeItem('loggedUser');
-      storageUser[storageUser.length - 1] === undefined ? user.id = 0 : user.id = storageUser[storageUser.length - 1].id + 1;
-
-      storageUser.push(user);
-      localStorage.setItem('users', JSON.stringify(storageUser));
-
-      const company = {
-        id: 1,
-        email: 'company@email.com',
-        role: 'company',
-        confirmEmail: 'company@email.com',
-        name: 'company',
-        cnpj: '123.123.123/1231-12',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        password: '123456',
-        confirmPassword: '123456',
-        address: '',
-      };
-
-      const tableCompany = localStorage.getItem('users');
-      const storageCompany: RegisterPayload[] = tableCompany ? JSON.parse(tableCompany) : [];
-
-      localStorage.removeItem('loggedUser');
-      storageCompany[storageCompany.length - 1] === undefined ? company.id = 0 : company.id = storageCompany[storageCompany.length - 1].id + 1;
-
-      storageCompany.push(company);
-      localStorage.setItem('users', JSON.stringify(storageCompany));
-    }
-
+  public initializeCollectPoints(): void {
     const collectList = this.collectService.get();
 
     if (!collectList) {
@@ -197,28 +156,87 @@ export class AppComponent implements OnInit {
     }
   }
 
-  public canShowNavbar: boolean = false;
+  public initializeUsers(): void {
+    const usersList = this.userService.getUsers();
 
-  public routesWithoutNavbar: string[] = ['/login'];
+    if (!usersList) {
+      const admin = {
+        id: 1,
+        email: 'admin@email.com',
+        role: 'admin',
+        confirmEmail: 'admin@email.com',
+        name: 'Admin',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        password: '123456',
+        confirmPassword: '123456',
+        address: '',
+      };
 
-  public routeSubscription: Subscription;
+      const tableUsers = localStorage.getItem('users');
+      const storageUsers: RegisterPayload[] = tableUsers ? JSON.parse(tableUsers) : [];
 
-  public firebaseConfig = {
-    apiKey: 'AIzaSyBFQV9Zh-llXE_3rLRjWOY2SxhtwYaVZyY',
-    authDomain: 'be-green-6e8dc.firebaseapp.com',
-    projectId: 'be-green-6e8dc',
-    storageBucket: 'be-green-6e8dc.appspot.com',
-    messagingSenderId: '400858493652',
-    appId: '1:400858493652:web:ccbe8bcbad9dbd43be0141',
-    measurementId: 'G-9HJZ971K5V',
-  };
+      localStorage.removeItem('loggedUser');
+      storageUsers[storageUsers.length - 1] === undefined ? admin.id = 0 : admin.id = storageUsers[storageUsers.length - 1].id + 1;
 
-  public ngOnInit(): void {
-    // const app = initializeApp(this.firebaseConfig);
-    // const analytics = getAnalytics(app);
+      storageUsers.push(admin);
+
+      const user = {
+        id: 1,
+        email: 'vini@email.com',
+        role: 'user',
+        confirmEmail: 'vini@email.com',
+        name: 'vini',
+        cpf: '123.123.123-12',
+        phone: '(12) 31231-2312',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        password: '123456',
+        confirmPassword: '123456',
+        address: '',
+        points: 0,
+      };
+
+      localStorage.removeItem('loggedUser');
+      storageUsers[storageUsers.length - 1] === undefined ? user.id = 0 : user.id = storageUsers[storageUsers.length - 1].id + 1;
+
+      storageUsers.push(user);
+
+      const company = {
+        id: 1,
+        email: 'company@email.com',
+        role: 'company',
+        confirmEmail: 'company@email.com',
+        name: 'company',
+        cnpj: '123.123.123/1231-12',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        password: '123456',
+        confirmPassword: '123456',
+        address: '',
+      };
+
+      localStorage.removeItem('loggedUser');
+      storageUsers[storageUsers.length - 1] === undefined ? company.id = 0 : company.id = storageUsers[storageUsers.length - 1].id + 1;
+
+      storageUsers.push(company);
+      localStorage.setItem('users', JSON.stringify(storageUsers));
+    }
   }
 
-  public async ngOnDestroy(): Promise<void> {
-    this.routeSubscription.unsubscribe();
+  public initializePosts(): void {
+    const postsList = this.postService.get();
+
+    if (!postsList) {
+      const post: PostProxy = {
+        id: 0,
+        title: '',
+        type: 0,
+        videoUrl: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    }
   }
+
 }

@@ -56,7 +56,7 @@ export class NavbarComponent {
     return this.user.role === 'company';
   }
 
-  public currentNavbar: NavbarEnum = NavbarEnum.COLLECT_POINTS;
+  public currentNavbar: NavbarEnum = NavbarEnum.HOME;
 
   public user!: UserProxy;
 

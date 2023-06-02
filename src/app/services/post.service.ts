@@ -10,7 +10,7 @@ export class PostService {
 
   public get(): PostProxy[] {
     const post = localStorage.getItem('posts');
-    return post ? JSON.parse(post) : [];
+    return post ? JSON.parse(post) : false;
   }
 
   public create(post: PostProxy): void {
