@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { GEOLOCATION_SUPPORT, GeolocationService } from '@ng-web-apis/geolocation';
@@ -17,7 +17,7 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './collect-points.page.html',
   styleUrls: ['./collect-points.page.scss'],
 })
-export class CollectPointsPage {
+export class CollectPointsPage implements OnInit {
 
   constructor(
     private readonly helper: HelperService,
@@ -27,12 +27,7 @@ export class CollectPointsPage {
     public readonly router: Router,
     private readonly modalController: ModalController,
     private readonly collectService: CollectService,
-  ) {
-    const resp = this.userService.get();
-
-    if (resp.role === 'admin')
-      this.isAdmin = true;
-  }
+  ) {}
 
   public map!: Leaflet.Map;
 
@@ -68,6 +63,18 @@ export class CollectPointsPage {
   public wasOpened: boolean = false;
 
   public closeButton: boolean = false;
+
+  public async ngOnInit(): Promise<void> {
+    const resp = this.userService.get();
+
+    if (!resp) {
+      await this.router.navigateByUrl('/login');
+      return void await this.helper.showToast('Oops... Você não tem permissão para acessar essa página');
+    }
+
+    if (resp.role === 'admin')
+      this.isAdmin = true;
+  }
 
   public ionViewDidEnter(): void {
     this.collectPoints = [];

@@ -115,13 +115,13 @@ export class LoginPage implements OnInit {
       return void await this.helper.showToast('Usuário ou senha incorretos, tente novamente.');
 
     if (this.user.role === 'user') {
-      await this.router.navigateByUrl('/collect-points');
+      await this.router.navigateByUrl('/home');
       await this.helper.showToast('Bem vindo(a) ao Be Green!');
       return;
     }
 
     if (this.user.role === 'company') {
-      await this.router.navigateByUrl('/verify-user');
+      await this.router.navigateByUrl('/home');
       await this.helper.showToast('Bem vindo(a) ao Be Green!');
       return;
     }
