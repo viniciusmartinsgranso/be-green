@@ -59,30 +59,7 @@ export class CollectPointsPage {
     popupAnchor:  [-3, -131] // point from which the popup should open relative to the iconAnchor
   });
 
-  public collectPoints: CollectPointProxy[] = [
-    {
-      name: 'Vini',
-      address: 'Vini',
-      locale: {
-        latitude: -23.477656,
-        longitude: -47.4929819,
-      },
-      updatedAt: new Date(),
-      createdAt: new Date(),
-      id: 0,
-    },
-    {
-      name: 'Vini',
-      address: 'Vini',
-      locale: {
-        latitude: -23.3975345,
-        longitude: -47.3801152,
-      },
-      updatedAt: new Date(),
-      createdAt: new Date(),
-      id: 0,
-    },
-  ];
+  public collectPoints: CollectPointProxy[] = [];
 
   public isAdmin: boolean = false;
 

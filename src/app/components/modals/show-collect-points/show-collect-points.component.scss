@@ -7,35 +7,43 @@
 .show-collect {
   width: 80vw;
   height: auto;
+  max-height: 75vh;
+  overflow: auto;
   padding: 2rem;
   background: var(--green-light-app-style);
   border-radius: .5rem;
   position: relative;
 
-  &--header {
-    width: 100%;
-    display: flex;
-  }
+  &--content {
+    height: 100%;
+    overflow: auto;
 
-  &--exit {
-    position: absolute;
-    color: white;
-    top: 1rem;
-    right: 2rem;
-    padding: 0.4rem;
-    border-radius: 100%;
-  }
+    &--header {
+      width: 100%;
+      display: flex;
+    }
 
-  &--items {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    border-bottom: 0.1rem solid;
-    padding: 1rem 0;
-    border-top: 0.1rem solid white;
+    &--exit {
+      position: absolute;
+      color: white;
+      top: .3rem;
+      right: 1rem;
+      padding: 0.4rem;
+      font-weight: bold;
+      border-radius: 100%;
+    }
 
-    label {
-      font-size: 1.2rem;
+    &--items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      border-bottom: 0.1rem solid;
+      padding: 1rem 0;
+      border-top: 0.1rem solid white;
+
+      label {
+        font-size: 1.2rem;
+      }
     }
   }
 }

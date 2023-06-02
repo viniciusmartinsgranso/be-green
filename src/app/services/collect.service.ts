@@ -11,7 +11,7 @@ export class CollectService {
 
   public get(): CollectPointProxy[] {
     const collect = localStorage.getItem('collect');
-    return collect ? JSON.parse(collect) : [];
+    return collect ? JSON.parse(collect) : false;
   }
 
   public create(collectPoint: CollectPointProxy): void {
