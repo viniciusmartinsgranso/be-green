@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { CollectUserPointComponent } from '../../../components/modals/collect-user-point/collect-user-point.component';
 import { ExitAppComponent } from '../../../components/modals/exit-app/exit-app.component';
 import { UserProxy } from '../../../models/proxies/user.proxy';
@@ -12,7 +13,7 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './user.page.html',
   styleUrls: ['./user.page.scss'],
 })
-export class UserPage implements OnInit {
+export class UserPage implements OnInit, OnDestroy {
 
   constructor(
     private readonly userService: UserService,
@@ -47,6 +48,8 @@ export class UserPage implements OnInit {
 
   public thirdWidth: number = 0;
 
+  public userSubscription: Subscription = new Subscription();
+
   public get isUser(): boolean {
     return this.user.role === 'user';
   }
@@ -54,7 +57,7 @@ export class UserPage implements OnInit {
   public async ngOnInit(): Promise<void> {
     this.user = this.userService.get();
 
-    this.userService.getCurrentUser().subscribe(user => {
+    this.userSubscription = this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
     });
 
@@ -68,6 +71,10 @@ export class UserPage implements OnInit {
     this.secondWidth = (this.totalPercentage * this.user.points)/this.secondMeta;
 
     this.thirdWidth = (this.totalPercentage * this.user.points)/this.thirdMeta;
+  }
+
+  public ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 
   public async openExitModal(): Promise<void> {

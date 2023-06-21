@@ -18,7 +18,9 @@
       <h3>Você atualmente tem {{ user.points }} pontos.</h3>
 
       <div class="user--points--show">
-        <h2 *ngIf="firstWidth !== 100">Para 3% de desconto, são necessários 300 pontos</h2>
+        <h2 *ngIf="firstWidth !== 100">Para 3% de desconto, são necessários 300 pontos{{
+          firstWidth < 100 ? '. Isso é ' + firstWidth + '% do progresso, continue!' : '. Parabéns! Você pode coletar seus pontos!'
+          }}</h2>
         <h2 *ngIf="firstWidth === 100">Parabéns! Você pode resgatar 3% de desconto!</h2>
         <div class="user--points--show--progress">
           <div class="user--points--show--progress--first-bar" [style.width]="firstWidth + '%'"></div>
@@ -27,7 +29,10 @@
       </div>
 
       <div class="user--points--show">
-        <h2 *ngIf="secondWidth !== 100">Para 5% de desconto, são necessários 500 pontos</h2>
+        <h2 *ngIf="secondWidth !== 100">
+          Para 5% de desconto, são necessários 500 pontos{{
+            secondWidth < 100 ? '. Isso é ' + secondWidth + '% do progresso, continue!' : '. Parabéns! Você pode coletar seus pontos!'
+          }}</h2>
         <h2 *ngIf="secondWidth === 100">Parabéns! Você pode resgatar 5% de desconto!</h2>
         <div class="user--points--show--progress">
           <div class="user--points--show--progress--second-bar" [style.width]="secondWidth + '%'"></div>
@@ -36,7 +41,9 @@
       </div>
 
       <div class="user--points--show">
-        <h2 *ngIf="thirdWidth !== 100">Para 10% de desconto, são necessários 1000 pontos</h2>
+        <h2 *ngIf="thirdWidth !== 100">Para 10% de desconto, são necessários 1000 pontos{{
+          thirdWidth < 100 ? '. Isso é ' + thirdWidth + '% do progresso, continue!' : '. Parabéns! Você pode coletar seus pontos!'
+          }}</h2>
         <h2 *ngIf="thirdWidth === 100">Parabéns! Você pode resgatar 10% de desconto!</h2>
         <div class="user--points--show--progress">
           <div class="user--points--show--progress--second-bar" [style.width]="thirdWidth + '%'"></div>

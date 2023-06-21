@@ -20,6 +20,7 @@
     animation: fade 1s ease-in-out;
     height: 100%;
     width: 100%;
+    z-index: 2;
 
     &--img-back {
       background: #dedede;
@@ -80,6 +81,7 @@
     display: flex;
     flex-direction: column;
     gap: .4rem;
+    z-index: 2;
 
     label {
       font-weight: bold;
@@ -101,6 +103,7 @@
     border-radius: 5rem;
     font-size: 1.4rem;
     font-weight: bold;
+    z-index: 2;
   }
 
   &--sub-label {

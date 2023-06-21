@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LoginPayload } from '../../models/payloads/login.payload';
 import { RegisterPayload } from '../../models/payloads/create-user.payload';
 import { UserProxy } from '../../models/proxies/user.proxy';
@@ -14,14 +15,14 @@ import isValidPassword = CustomValidators.isValidPassword;
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
 
   constructor(
     private readonly userService: UserService,
     private readonly router: Router,
     private readonly helper: HelperService,
   ) {
-    this.userService.getCurrentUser().subscribe(user => {
+    this.userSubscription = this.userService.getCurrentUser().subscribe(user => {
       return this.user = user;
     })
   }
@@ -60,9 +61,15 @@ export class LoginPage implements OnInit {
     updatedAt: new Date(),
   };
 
+  public userSubscription: Subscription = new Subscription();
+
   public async ngOnInit(): Promise<void> {
     if (this.user.role !== '')
       await this.router.navigateByUrl('/home');
+  }
+
+  public ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 
   public canLogin(): boolean {

@@ -14,6 +14,7 @@ export class HelperService {
     const toast = await this.toastController.create({
       message,
       duration,
+      cssClass: 'toast-center'
     });
     await toast.present();
   }

@@ -43,6 +43,11 @@
   backdrop-filter: blur(0.12rem);
 }
 
+.toast-center {
+  text-align: center;
+  font-weight: bold;
+}
+
 ion-content {
   --keyboard-offset: 0px !important;
 }

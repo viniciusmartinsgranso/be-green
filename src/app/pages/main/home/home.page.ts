@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { ExitAppComponent } from '../../../components/modals/exit-app/exit-app.component';
 import { FunctionalitiesEnum } from '../../../models/enums/functionalities.enum';
 import { PostProxy } from '../../../models/proxies/post.proxy';
@@ -15,7 +16,7 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
 
   constructor(
     private readonly userService: UserService,
@@ -52,10 +53,16 @@ export class HomePage implements OnInit {
 
   public isCompany: boolean = false;
 
+  public userSubscription: Subscription = new Subscription();
+
   public ngOnInit(): void {
-    this.userService.getCurrentUser().subscribe(user => {
+    this.userSubscription = this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 
   public async ionViewDidEnter(): Promise<void> {

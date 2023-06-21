@@ -139,6 +139,10 @@ export class VerifyUserPage implements OnInit {
     this.recycle.user = this.postUser;
     this.recycleService.create(this.recycle);
     await this.helper.showToast('Cadastrado com sucesso!');
+    this.userVerified.name = '';
+    this.userVerified.cpf = '';
+    this.userVerified.phone = '';
+    this.recycle.weight = 0;
   }
 
 }
