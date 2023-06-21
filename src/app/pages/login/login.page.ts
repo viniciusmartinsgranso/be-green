@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { CreateCollectPointComponent } from '../../components/modals/create-collect-point/create-collect-point.component';
 import { LoginPayload } from '../../models/payloads/login.payload';
 import { RegisterPayload } from '../../models/payloads/create-user.payload';
 import { UserProxy } from '../../models/proxies/user.proxy';
@@ -21,6 +23,7 @@ export class LoginPage implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly router: Router,
     private readonly helper: HelperService,
+    private readonly modalController: ModalController,
   ) {
     this.userSubscription = this.userService.getCurrentUser().subscribe(user => {
       return this.user = user;
@@ -128,6 +131,18 @@ export class LoginPage implements OnInit, OnDestroy {
     }
 
     if (this.user.role === 'company') {
+      const modal = await this.modalController.create({
+        component: CreateCollectPointComponent,
+        cssClass: 'local-backdrop',
+        componentProps: {
+          isCompany: true,
+          companyName: this.user.name,
+          companyAddress: this.registerPayload.address,
+        }
+      });
+
+      await modal.present();
+
       await this.router.navigateByUrl('/home');
       await this.helper.showToast('Bem vindo(a) ao Be Green!');
       return;

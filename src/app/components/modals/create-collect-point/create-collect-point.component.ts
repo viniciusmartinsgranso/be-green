@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { LocationInterface } from '../../../models/interfaces/location.interface';
 import { CollectPointProxy } from '../../../models/proxies/collect-point.proxy';
@@ -10,13 +10,22 @@ import { HelperService } from '../../../services/helper.service';
   templateUrl: './create-collect-point.component.html',
   styleUrls: ['./create-collect-point.component.scss'],
 })
-export class CreateCollectPointComponent  implements OnInit {
+export class CreateCollectPointComponent implements OnInit {
 
   constructor(
     private readonly collectService: CollectService,
     private readonly helper: HelperService,
     public readonly modalController: ModalController,
   ) { }
+
+  @Input()
+  public isCompany: boolean = false;
+
+  @Input()
+  public companyName: string = '';
+
+  @Input()
+  public companyAddress: string = '';
 
   public point: CollectPointProxy = {
     id: 1,
@@ -28,15 +37,21 @@ export class CreateCollectPointComponent  implements OnInit {
     },
     updatedAt: new Date(),
     createdAt: new Date(),
-  }
+  };
 
-  ngOnInit() {}
+  public ngOnInit(): void {
+    if (this.isCompany) {
+      this.point.name = this.companyName;
+      this.point.address = this.companyAddress;
+    }
+  }
 
   public async createPoint(): Promise<void> {
     this.collectService.create(this.point);
 
     await this.helper.showToast('Ponto de coleta criado com sucesso!');
     await this.modalController.dismiss();
+    this.isCompany = false;
     location.reload();
   }
 

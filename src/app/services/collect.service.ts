@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CollectPointProxy } from '../models/proxies/collect-point.proxy';
-import { RecycleProxy } from '../models/proxies/recycle.proxy';
 
 @Injectable({
   providedIn: 'root'
